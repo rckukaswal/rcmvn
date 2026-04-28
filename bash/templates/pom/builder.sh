@@ -20,7 +20,7 @@ property_flags=(
     "LOG4J_VERSION:log4j.version"
     "LOGBACK_VERSION:logback.version"
     "EXTENT_VERSION:extent.version"
-    "ALLURE:allure.version"
+    "ALLURE_VERSION:allure.version"
     "POI_VERSION:poi.version"
     "JACKSON_VERSION:jackson.version"
     "GSON_VERSION:gson.version"
@@ -33,7 +33,6 @@ property_flags=(
     "POSTGRES_VERSION:postgres.version"
     "APPIUM_VERSION:appium.version"
     "LOMBOK_VERSION:lombok.version"
-    
     "MAVEN_COMPILER_PLUGIN_VERSION:maven.compiler.plugin.version"
     "MAVEN_SUREFIRE_PLUGIN_VERSION:maven.surefire.plugin.version"
     "MAVEN_FAILSAFE_PLUGIN_VERSION:maven.failsafe.plugin.version"
@@ -74,10 +73,22 @@ plugin_flags=(
 # Build properties
 build_properties() {
     properties=""
+
     for item in "${property_flags[@]}"; do
-        var_name="${item%%:*}"
-        property_name="${item##*:}"
-        if [[ -n "${!var_name}" ]]; then
+        var_name="${item%%:*}"         # TESTNG_VERSION
+        property_name="${item##*:}"    # testng.version
+
+        base_name="${var_name%_VERSION}"  # TESTNG
+
+        # agar flag true hai
+        if [[ "${!base_name}" == true ]]; then
+
+            # agar version nahi diya to default use karo
+            if [[ -z "${!var_name}" ]]; then
+                default_var="DEFAULT_${var_name}"
+                eval "$var_name=\${$default_var}"
+            fi
+
             properties="$properties
         <$property_name>${!var_name}</$property_name>"
         fi
