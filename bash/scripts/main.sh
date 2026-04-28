@@ -19,7 +19,7 @@ source "$BASE_DIR/setup/gitignore.sh"
 # Templates / Generator
 source "$BASE_DIR/templates/pom/builder.sh"
 source "$BASE_DIR/templates/framework/builder.sh"
-source "$BASE_DIR/templates/testng/testng.sh"
+
 
 # Run Input
 collect_user_input
