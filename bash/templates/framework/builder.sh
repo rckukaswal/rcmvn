@@ -57,7 +57,7 @@ generate_framework_files() {
     # Always
     mkdir -p "$mj/factory" "$mj/manager" "$mj/pages"
     mkdir -p "$tj/base" "$tj/tests"
-    mkdir -p "$tr/suites" "$tr/testdata/properties" "$tr/testdata/json"
+    mkdir -p "$tr/suites" 
 
     generate_driver_factory    "$mj/factory"             "$package_name"
     generate_driver_manager    "$mj/manager"             "$package_name"
@@ -65,8 +65,6 @@ generate_framework_files() {
     generate_app_page          "$mj/pages"               "$package_name"
     generate_base_test         "$tj/base"                "$package_name"  "$TEST_URL"
     generate_app_test          "$tj/tests"               "$package_name"
-    generate_config_properties "$tr/testdata/properties" "$TEST_URL"
-    generate_testdata_json     "$tr/testdata/json"
     generate_testng            "$tr/suites"              "$package_name"
 
     # Utils
@@ -84,13 +82,21 @@ generate_framework_files() {
     [[ "$GEN_REGRESSION_SUITE"    == "true" ]] && generate_regression_suite    "$tr/suites" "$package_name"
     [[ "$GEN_CROSS_BROWSER_SUITE" == "true" ]] && generate_cross_browser_suite "$tr/suites" "$package_name"
 
+   # Resources
+   # [[ "$GEN_LOG4J2_XML"          == "true" ]] && mkdir -p "$mr" && generate_log4j2_xml          "$mr"
+    [[ "$GEN_LOG4J2_XML"          == "true" ]] && mkdir -p "$tr" && generate_log4j2_xml          "$tr"
+
+
     # Testdata
     [[ "$GEN_USERS_CSV"      == "true" ]] && mkdir -p "$tr/testdata/csv"   && generate_users_csv      "$tr/testdata/csv"
     [[ "$GEN_TESTDATA_EXCEL" == "true" ]] && mkdir -p "$tr/testdata/excel" && generate_testdata_excel "$tr/testdata/excel"
 
-    # Resources
-    [[ "$GEN_LOG4J2_XML"          == "true" ]] && mkdir -p "$mr" && generate_log4j2_xml          "$mr"
-    [[ "$GEN_ENV_PROPERTIES"      == "true" ]] && mkdir -p "$mr" && generate_env_properties      "$mr" "$TEST_URL"
-    [[ "$GEN_LOCATORS_JSON"       == "true" ]] && mkdir -p "$mr" && generate_locators_json       "$mr"
-    [[ "$GEN_MESSAGES_PROPERTIES" == "true" ]] && mkdir -p "$mr" && generate_messages_properties "$mr"
+    [[ "$GEN_TESTDATA_JSON"        == "true" ]] && mkdir -p "$tr/testdata/json"  && generate_testdata_json  "$tr/testdata/json"
+    [[ "$GEN_LOCATORS_JSON"      == "true" ]] && mkdir -p "$tr/testdata/json"  && generate_locators_json  "$tr/testdata/json"
+
+    
+
+   [[ "$GEN_CONFIG_PROPERTIES" == "true" ]] && mkdir -p "$tr/testdata/properties" && generate_config_properties "$tr/testdata/properties" "$TEST_URL"
+    [[ "$GEN_MESSAGES_PROPERTIES" == "true" ]] && mkdir -p "$tr/testdata/properties" && generate_messages_properties "$tr/testdata/properties"
 }
+   

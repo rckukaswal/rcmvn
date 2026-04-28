@@ -25,6 +25,7 @@ source "$BASE_DIR/templates/framework/builder.sh"
 collect_user_input
 
 # Dynamic Config
+source "$BASE_DIR/config/default.config"
 source "$BASE_DIR/config/$LEVEL.config"
 
 log_step "Starting Maven Project Generation"
@@ -58,16 +59,3 @@ echo "   cd $project_name"
 echo "   mvn test"
 echo ""
 
-echo "Available Suites:"
-echo "   mvn test -DsuiteXmlFile=testng.xml"
-
-if [[ "$LEVEL" == "intermediate" || "$LEVEL" == "advanced" ]]; then
-    echo "   mvn test -DsuiteXmlFile=src/test/resources/suites/smoke.xml"
-    echo "   mvn test -DsuiteXmlFile=src/test/resources/suites/regression.xml"
-fi
-
-if [[ "$LEVEL" == "advanced" ]]; then
-    echo "   mvn test -DsuiteXmlFile=src/test/resources/suites/cross_browser.xml"
-fi
-
-echo ""

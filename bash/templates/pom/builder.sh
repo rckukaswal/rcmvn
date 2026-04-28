@@ -33,6 +33,7 @@ property_flags=(
     "POSTGRES_VERSION:postgres.version"
     "APPIUM_VERSION:appium.version"
     "LOMBOK_VERSION:lombok.version"
+    
     "MAVEN_COMPILER_PLUGIN_VERSION:maven.compiler.plugin.version"
     "MAVEN_SUREFIRE_PLUGIN_VERSION:maven.surefire.plugin.version"
     "MAVEN_FAILSAFE_PLUGIN_VERSION:maven.failsafe.plugin.version"

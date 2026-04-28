@@ -2,7 +2,7 @@
 
 generate_testdata_excel() {
     local output_dir="$1"
-    local source_file="$BASE_DIR/templates/framework/src/test/resources/data/testdata.xlsx"
+    local source_file="$BASE_DIR/templates/framework/src/test/resources/testdata/excel/testdata.xlsx"
 
     mkdir -p "$output_dir"
 
