@@ -20,7 +20,7 @@ property_flags=(
     "LOG4J_VERSION:log4j.version"
     "LOGBACK_VERSION:logback.version"
     "EXTENT_VERSION:extent.version"
-    "ALLURE_VERSION:allure.version"
+    "ALLURE:allure.version"
     "POI_VERSION:poi.version"
     "JACKSON_VERSION:jackson.version"
     "GSON_VERSION:gson.version"
