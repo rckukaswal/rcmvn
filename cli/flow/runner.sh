@@ -37,6 +37,7 @@ sync_latest() {
             log_warning "No network detected"
             log_info "Running current version"
 
+
         fi
     fi
     echo ""
