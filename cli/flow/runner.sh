@@ -24,21 +24,24 @@ sync_latest() {
 
     if [[ "$LATEST_HASH" == "$CURRENT_HASH" ]]; then
         log_success "Already up to date"
-        echo ""
+        
     else
         TEMP_DIR=$(mktemp -d)
         if git clone --depth 1 -q "$REPO_URL" "$TEMP_DIR" >/dev/null 2>&1; then
             rm -rf "$CACHE_DIR"
             mv "$TEMP_DIR" "$CACHE_DIR"
             log_success "Updated"
-            echo ""
+        
         else
             rm -rf "$TEMP_DIR"
             log_warning "No network detected"
             log_info "Running current version"
+
         fi
     fi
+    echo ""
 }
 
 sync_latest
+
 bash "$MAIN_SCRIPT"
