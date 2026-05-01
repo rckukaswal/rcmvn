@@ -1,10 +1,10 @@
 #!/bin/bash
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
-source "$BASE_DIR/templates/pom/versions.sh"
-source "$BASE_DIR/templates/pom/dependencies.sh"
-source "$BASE_DIR/templates/pom/plugins.sh"
-source "$BASE_DIR/templates/pom/render.sh"
+source "$BASE_DIR/maven/pom/versions.sh"
+source "$BASE_DIR/maven/pom/dependencies.sh"
+source "$BASE_DIR/maven/pom/plugins.sh"
+source "$BASE_DIR/maven/pom/render.sh"
 
 properties=""
 dependencies=""

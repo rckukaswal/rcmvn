@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 build_framework() {
     project_dir="$1"
     package_path="$2"
@@ -8,9 +7,9 @@ build_framework() {
     
     log_step "Building Framework"
 
-    local tmj="$BASE_DIR/templates/framework/src/main/java"
-    local ttj="$BASE_DIR/templates/framework/src/test/java"
-    local ttr="$BASE_DIR/templates/framework/src/test/resources"
+    local tmj="$BASE_DIR/maven/framework/src/main/java"
+    local ttj="$BASE_DIR/maven/framework/src/test/java"
+    local ttr="$BASE_DIR/maven/framework/src/test/resources"
 
     source "$tmj/factory/driver_factory.sh"
     source "$tmj/manager/driver_manager.sh"
@@ -96,7 +95,7 @@ generate_framework_files() {
 
     
 
-   [[ "$GEN_CONFIG_PROPERTIES" == "true" ]] && mkdir -p "$tr/testdata/properties" && generate_config_properties "$tr/testdata/properties" "$TEST_URL"
+    [[ "$GEN_CONFIG_PROPERTIES" == "true" ]] && mkdir -p "$tr/testdata/properties" && generate_config_properties "$tr/testdata/properties" "$TEST_URL"
     [[ "$GEN_MESSAGES_PROPERTIES" == "true" ]] && mkdir -p "$tr/testdata/properties" && generate_messages_properties "$tr/testdata/properties"
 }
    

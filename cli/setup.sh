@@ -20,7 +20,7 @@ else
 fi
 
 if ! grep -q "alias rcmvn=" "$HOME/.bashrc"; then
-    echo "alias rcmvn='bash \$HOME/.mvngen/bash/scripts/start.sh'" >> "$HOME/.bashrc"
+    echo "alias rcmvn='bash \$HOME/.mvngen/bash/scripts/runner.sh'" >> "$HOME/.bashrc"
     echo "✅ Alias 'rcmvn' added"
     echo "ℹ Run: source ~/.bashrc"
 fi

@@ -2,11 +2,11 @@
 set -e
 
 BASE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-source "$BASE_DIR/lib/logger.sh"
+source "$BASE_DIR/core/logger.sh"
 
 CACHE_DIR="$HOME/.mvngen"
 REPO_URL="https://github.com/rckukaswal/rcmvn.git"
-MAIN_SCRIPT="$CACHE_DIR/bash/scripts/main.sh"
+MAIN_SCRIPT="$CACHE_DIR/cli/flow/main.sh"
 
 clear
 
