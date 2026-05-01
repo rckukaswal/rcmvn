@@ -9,7 +9,7 @@ REPO_URL="https://github.com/rckukaswal/rcmvn.git"
 MAIN_SCRIPT="$CACHE_DIR/cli/flow/main.sh"
 
 #clear
-
+#
 echo ""
 echo "┌──────────────────────────────────────────────┐"
 echo "│           Maven Project Generator            │"
