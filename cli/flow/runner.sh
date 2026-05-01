@@ -30,7 +30,7 @@ sync_latest() {
         if git clone --depth 1 -q "$REPO_URL" "$TEMP_DIR" >/dev/null 2>&1; then
             rm -rf "$CACHE_DIR"
             mv "$TEMP_DIR" "$CACHE_DIR"
-            log_success "Updated"
+            log_success "Updated — $(date '+%d %b %Y %I:%M %p')"
         
         else
             rm -rf "$TEMP_DIR"
