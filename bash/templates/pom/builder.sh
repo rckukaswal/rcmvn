@@ -33,10 +33,11 @@ property_flags=(
     "POSTGRES_VERSION:postgres.version"
     "APPIUM_VERSION:appium.version"
     "LOMBOK_VERSION:lombok.version"
-    "MAVEN_COMPILER_PLUGIN_VERSION:maven.compiler.plugin.version"
-    "MAVEN_SUREFIRE_PLUGIN_VERSION:maven.surefire.plugin.version"
-    "MAVEN_FAILSAFE_PLUGIN_VERSION:maven.failsafe.plugin.version"
-    "ALLURE_MAVEN_VERSION:allure.maven.version"
+
+    "COMPILER_VERSION:maven.compiler.plugin.version"
+    "SUREFIRE_VERSION:maven.surefire.plugin.version"
+    "FAILSAFE_VERSION:maven.failsafe.plugin.version"
+    "ALLURE_VERSION:allure.maven.version"
 )
 
 dependency_flags=(
@@ -64,10 +65,10 @@ dependency_flags=(
 )
 
 plugin_flags=(
-    "COMPILER_PLUGIN:compiler_plugin"
-    "SUREFIRE_PLUGIN:surefire_plugin"
-    "FAILSAFE_PLUGIN:failsafe_plugin"
-    "ALLURE_PLUGIN:allure_plugin"
+    "COMPILER:compiler_plugin"
+    "SUREFIRE:surefire_plugin"
+    "FAILSAFE:failsafe_plugin"
+    "ALLURE:allure_plugin"
 )
 
 # Build properties
