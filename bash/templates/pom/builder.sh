@@ -64,10 +64,10 @@ dependency_flags=(
 )
 
 plugin_flags=(
-    "ENABLE_COMPILER_PLUGIN:compiler_plugin"
-    "ENABLE_SUREFIRE_PLUGIN:surefire_plugin"
-    "ENABLE_FAILSAFE_PLUGIN:failsafe_plugin"
-    "ENABLE_ALLURE_PLUGIN:allure_plugin"
+    "COMPILER_PLUGIN:compiler_plugin"
+    "SUREFIRE_PLUGIN:surefire_plugin"
+    "FAILSAFE_PLUGIN:failsafe_plugin"
+    "ALLURE_PLUGIN:allure_plugin"
 )
 
 # Build properties
