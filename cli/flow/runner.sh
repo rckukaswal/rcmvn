@@ -17,19 +17,28 @@ echo "│           by Ramchandra Kukaswal             │"
 echo "└──────────────────────────────────────────────┘"
 echo ""
 
-log_info "Syncing latest version..."
+lsync_latest() {
+    log_info "Syncing latest version..."
+    LATEST_HASH=$(git ls-remote "$REPO_URL" HEAD | cut -f1)
+    CURRENT_HASH=$(cat "$CACHE_DIR/.git/refs/heads/main" 2>/dev/null || echo "none")
 
-TEMP_DIR=$(mktemp -d)
+    if [[ "$LATEST_HASH" == "$CURRENT_HASH" ]]; then
+        log_success "Already up to date"
+        echo ""
+    else
+        TEMP_DIR=$(mktemp -d)
+        if git clone --depth 1 -q "$REPO_URL" "$TEMP_DIR" >/dev/null 2>&1; then
+            rm -rf "$CACHE_DIR"
+            mv "$TEMP_DIR" "$CACHE_DIR"
+            log_success "Updated"
+            echo ""
+        else
+            rm -rf "$TEMP_DIR"
+            log_warning "No network detected"
+            log_info "Running current version"
+        fi
+    fi
+}
 
-if git clone --depth 1 -q "$REPO_URL" "$TEMP_DIR" >/dev/null 2>&1; then
-    rm -rf "$CACHE_DIR"
-    mv "$TEMP_DIR" "$CACHE_DIR"
-    log_success "Ready"
-    echo ""
-else
-    rm -rf "$TEMP_DIR"
-    log_warning "No network / update failed"
-    log_info "Running cached local version"
-fi
-
+sync_latest
 bash "$MAIN_SCRIPT"
