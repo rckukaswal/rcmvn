@@ -17,10 +17,10 @@ else
     exit 1
 fi
 
-if ! grep -q "alias rcmvn=" "$HOME/.bashrc"; then
-    echo "alias rcmvn='bash \$HOME/.mvngen/cli/flow/runner.sh'" >> "$HOME/.bashrc"
-    echo "✅ Alias 'rcmvn' added"
-    echo "ℹ Run: source ~/.bashrc"
-fi
+# Update alias — overwrite if already exists
+sed -i '/alias rcmvn=/d' "$HOME/.bashrc"
+echo "alias rcmvn='bash \$HOME/.mvngen/cli/flow/runner.sh'" >> "$HOME/.bashrc"
+echo "✅ Alias 'rcmvn' updated"
+echo "ℹ️  Run: source ~/.bashrc"
 
 bash "$START_SCRIPT"
