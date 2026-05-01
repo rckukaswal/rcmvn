@@ -3,7 +3,7 @@ set -e
 
 CACHE_DIR="$HOME/.mvngen"
 REPO_URL="https://github.com/rckukaswal/rcmvn.git"
-START_SCRIPT="$CACHE_DIR/bash/scripts/start.sh"
+START_SCRIPT="$CACHE_DIR/bash/scripts/runner.sh"
 
 # Fresh install / reinstall
 if [ -d "$CACHE_DIR" ]; then
