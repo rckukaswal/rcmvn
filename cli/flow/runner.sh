@@ -19,7 +19,7 @@ echo ""
 
 sync_latest() {
     log_info "Syncing latest version..."
-    LATEST_HASH=$(git ls-remote "$REPO_URL" HEAD | cut -f1)
+    LATEST_HASH=$(git ls-remote "$REPO_URL" HEAD 2>/dev/null | cut -f1)
     CURRENT_HASH=$(cat "$CACHE_DIR/.git/refs/heads/main" 2>/dev/null || echo "none")
 
     if [[ "$LATEST_HASH" == "$CURRENT_HASH" ]]; then
