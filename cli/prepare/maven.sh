@@ -9,7 +9,7 @@ check_maven() {
 }
 
 install_maven() {
-    log_info "Installing Maven..."
+    
     case "$(get_os)" in
         linux)
             sudo apt update && sudo apt install -y maven
@@ -18,7 +18,7 @@ install_maven() {
             brew install maven
             ;;
         *)
-            log_warning "Skipping Maven installation"
+            log_warning " $(get_os): Skipping Maven installation"
             
              return 1
             ;;
@@ -30,9 +30,15 @@ ensure_maven() {
         return 0
     fi
 
-    log_warning "Maven not found"
+    if is_windows; then
+        install_maven 
+        return 0
+    fi
 
+    log_warning "Maven not found"
+         
     if skip_prompt "Maven is required. Install now?"; then
+        log_info "Installing Maven..." 
         install_maven || return 0
 
         if check_maven; then

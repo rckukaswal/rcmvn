@@ -11,11 +11,9 @@ check_git() {
 install_git() {
     case "$(get_os)" in
         linux)
-            log_info "Installing Git..."
             sudo apt update && sudo apt install -y git
             ;;
         mac)
-            log_info "Installing Git..."
             brew install git
             ;;
         *)
@@ -29,12 +27,15 @@ ensure_git() {
     if check_git; then
         return 0
     fi
-
+    if is_windows; then
+        return 0
+    fi
     log_warning "Git not found"
 
    
 
     if skip_prompt "Git is required. Install now?"; then
+        log_info "Installing Git..."
         install_git || return 0
 
         if check_git; then

@@ -12,11 +12,9 @@ install_java() {
     local os=$(get_os)
     case "$os" in
         linux)
-            log_info "Installing Java..."
             sudo apt update && sudo apt install -y openjdk-21-jdk
             ;;
         mac)
-            log_info "Installing Java..."
             brew install openjdk@21
             ;;
         *)
@@ -31,9 +29,14 @@ ensure_java() {
         return 0
     fi
 
+    if is_windows; then
+        return 0
+    fi
+
     log_warning "Java not found"
 
     if skip_prompt "Java is required. Install now?"; then
+        log_info "Installing Java..."
         install_java || return 0
 
         if check_java; then
