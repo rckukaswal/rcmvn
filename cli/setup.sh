@@ -16,7 +16,7 @@ else
     echo "❌ Installation failed. Check internet connection."
     exit 1
 fi
-echo "⏳ Setting up alias..."
+
 # Update alias — overwrite if already exists
 sed -i '/alias rcmvn=/d' "$HOME/.bashrc"
 echo "alias rcmvn='bash \$HOME/.mvngen/cli/flow/runner.sh'" >> "$HOME/.bashrc"
