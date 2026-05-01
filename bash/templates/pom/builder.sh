@@ -34,9 +34,9 @@ property_flags=(
     "APPIUM_VERSION:appium.version"
     "LOMBOK_VERSION:lombok.version"
 
-    "COMPILER_VERSION:maven.compiler.plugin.version"
-    "SUREFIRE_VERSION:maven.surefire.plugin.version"
-    "FAILSAFE_VERSION:maven.failsafe.plugin.version"
+    "COMPILER_PLUGIN_VERSION:maven.compiler.plugin.version"
+    "SUREFIRE_PLUGIN_VERSION:maven.surefire.plugin.version"
+    "FAILSAFE_PLUGIN_VERSION:maven.failsafe.plugin.version"
     "ALLURE_PLUGIN_VERSION:allure.maven.version"
 )
 
