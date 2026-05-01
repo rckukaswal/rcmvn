@@ -9,8 +9,20 @@ check_git() {
 }
 
 install_git() {
-    log_info "Installing Git..."
-    sudo apt update && sudo apt install -y git
+    case "$(get_os)" in
+        linux)
+            log_info "Installing Git..."
+            sudo apt update && sudo apt install -y git
+            ;;
+        mac)
+            log_info "Installing Git..."
+            brew install git
+            ;;
+        *)
+            log_info "$(get_os) detected — Download Git: https://git-scm.com/download/win"
+            return 1
+            ;;
+    esac
 }
 
 ensure_git() {
@@ -19,6 +31,8 @@ ensure_git() {
     fi
 
     log_warning "Git not found"
+
+   
 
     if skip_prompt "Git is required. Install now?"; then
         install_git

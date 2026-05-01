@@ -9,8 +9,21 @@ check_java() {
 }
 
 install_java() {
-    log_info "Installing Java..."
-    sudo apt update && sudo apt install -y openjdk-21-jdk
+    local os=$(get_os)
+    case "$os" in
+        linux)
+            log_info "Installing Java..."
+            sudo apt update && sudo apt install -y openjdk-21-jdk
+            ;;
+        mac)
+            log_info "Installing Java..."
+            brew install openjdk@21
+            ;;
+        *)
+            log_info "$(get_os) detected — Use IntelliJ or Eclipse to open project"
+            return 1
+            ;;
+    esac
 }
 
 ensure_java() {
@@ -21,7 +34,7 @@ ensure_java() {
     log_warning "Java not found"
 
     if skip_prompt "Java is required. Install now?"; then
-        install_java
+        install_java || return 0
 
         if check_java; then
             log_success "Java installed successfully"

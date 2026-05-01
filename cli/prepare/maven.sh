@@ -10,7 +10,19 @@ check_maven() {
 
 install_maven() {
     log_info "Installing Maven..."
-    sudo apt update && sudo apt install -y maven
+    case "$(get_os)" in
+        linux)
+            sudo apt update && sudo apt install -y maven
+            ;;
+        mac)
+            brew install maven
+            ;;
+        *)
+            log_warning "Auto install not supported on this OS"
+            log_info "Import project in IntelliJ or Eclipse"
+             return 1
+            ;;
+    esac
 }
 
 ensure_maven() {

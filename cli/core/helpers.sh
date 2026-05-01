@@ -117,3 +117,18 @@ select_option() {
         esac
     done
 }
+
+
+
+get_os() {
+    case "$(uname -s)" in
+        Linux*)              echo "linux" ;;
+        Darwin*)             echo "mac" ;;
+        MINGW*|MSYS*|CYGWIN*) echo "windows" ;;
+        *)                   echo "unknown" ;;
+    esac
+}
+
+is_windows() {
+    [[ "$(get_os)" == "windows" ]]
+}
