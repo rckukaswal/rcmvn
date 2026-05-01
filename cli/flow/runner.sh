@@ -23,7 +23,8 @@ sync_latest() {
     CURRENT_HASH=$(cat "$CACHE_DIR/.git/refs/heads/main" 2>/dev/null || echo "none")
 
     if [[ "$LATEST_HASH" == "$CURRENT_HASH" ]]; then
-        log_success "Already up to date"
+        LAST_UPDATE=$(git -C "$CACHE_DIR" log -1 --format="%cd" --date=format:'%d %b %Y %I:%M %p' 2>/dev/null)
+        log_success "Already up to date — $LAST_UPDATE"
         
     else
         TEMP_DIR=$(mktemp -d)
