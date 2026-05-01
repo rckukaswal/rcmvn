@@ -18,8 +18,8 @@ install_maven() {
             brew install maven
             ;;
         *)
-            log_warning "Auto install not supported on this OS"
-            log_info "Import project in IntelliJ or Eclipse"
+            log_warning "Skipping Maven installation"
+            
              return 1
             ;;
     esac
@@ -33,7 +33,7 @@ ensure_maven() {
     log_warning "Maven not found"
 
     if skip_prompt "Maven is required. Install now?"; then
-        install_maven
+        install_maven || return 0
 
         if check_maven; then
             log_success "Maven installed successfully"

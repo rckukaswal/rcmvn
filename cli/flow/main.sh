@@ -52,7 +52,4 @@ echo "  Project Dir  : $base_dir/$project_name"
 echo ""
 
 # Next Steps
-echo "Next Steps:"
-echo "   cd $project_name"
-echo "   mvn test"
-echo ""
+show_next_steps

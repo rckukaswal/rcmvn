@@ -35,7 +35,7 @@ ensure_git() {
    
 
     if skip_prompt "Git is required. Install now?"; then
-        install_git
+        install_git || return 0
 
         if check_git; then
             log_success "Git installed successfully"

@@ -132,3 +132,16 @@ get_os() {
 is_windows() {
     [[ "$(get_os)" == "windows" ]]
 }
+
+show_next_steps() {
+    echo "Next Steps:"
+    if is_windows; then
+        echo "   $(get_os) detected"
+        echo "   Open project in IntelliJ or Eclipse"
+        echo "   Import as Maven project"
+    else
+        echo "   cd $project_name"
+        echo "   mvn test"
+    fi
+    echo ""
+}

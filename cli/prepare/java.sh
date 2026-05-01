@@ -20,7 +20,7 @@ install_java() {
             brew install openjdk@21
             ;;
         *)
-            log_info "$(get_os) detected — Use IntelliJ or Eclipse to open project"
+            log_info "Skipping Java installation"
             return 1
             ;;
     esac
