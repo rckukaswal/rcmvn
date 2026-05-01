@@ -17,7 +17,7 @@ echo "│           by Ramchandra Kukaswal             │"
 echo "└──────────────────────────────────────────────┘"
 echo ""
 
-lsync_latest() {
+sync_latest() {
     log_info "Syncing latest version..."
     LATEST_HASH=$(git ls-remote "$REPO_URL" HEAD | cut -f1)
     CURRENT_HASH=$(cat "$CACHE_DIR/.git/refs/heads/main" 2>/dev/null || echo "none")
