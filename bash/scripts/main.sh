@@ -27,6 +27,8 @@ collect_user_input
 # Dynamic Config
 source "$BASE_DIR/config/default.config"
 source "$BASE_DIR/config/$LEVEL.config"
+source "$BASE_DIR/lib/defaults.sh"
+set_config_defaults
 
 log_step "Starting Maven Project Generation"
 

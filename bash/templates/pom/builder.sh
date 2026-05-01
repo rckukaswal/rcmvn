@@ -37,7 +37,7 @@ property_flags=(
     "COMPILER_VERSION:maven.compiler.plugin.version"
     "SUREFIRE_VERSION:maven.surefire.plugin.version"
     "FAILSAFE_VERSION:maven.failsafe.plugin.version"
-    "ALLURE_VERSION:allure.maven.version"
+    "ALLURE_PLUGIN_VERSION:allure.maven.version"
 )
 
 dependency_flags=(
@@ -65,10 +65,10 @@ dependency_flags=(
 )
 
 plugin_flags=(
-    "COMPILER:compiler_plugin"
-    "SUREFIRE:surefire_plugin"
-    "FAILSAFE:failsafe_plugin"
-    "ALLURE:allure_plugin"
+    "COMPILER_PLUGIN:compiler_plugin"
+    "SUREFIRE_PLUGIN:surefire_plugin"
+    "FAILSAFE_PLUGIN:failsafe_plugin"
+    "ALLURE_PLUGIN:allure_plugin"
 )
 
 # Build properties
