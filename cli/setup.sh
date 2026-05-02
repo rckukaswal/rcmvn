@@ -18,6 +18,12 @@ else
 fi
 
 # Update alias — overwrite if already exists
+
+if [ -f "$HOME/.bashrc" ]; then
+echo "already exists"
+else
+    touch "$HOME/.bashrc"
+fi
 sed -i '/alias rcmvn=/d' "$HOME/.bashrc"
 echo "alias rcmvn='bash \$HOME/.mvngen/cli/flow/runner.sh'" >> "$HOME/.bashrc"
 echo "✅ Alias 'rcmvn' updated"
