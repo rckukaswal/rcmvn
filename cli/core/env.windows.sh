@@ -4,13 +4,11 @@
 declare -A TOOL_CHECK_CMD=(
     [java]="java"
     [maven]="mvn"
-    [git]="git"
 )
 
 declare -A TOOL_VERSION_CMD=(
     [java]="java -version"
     [maven]="mvn -version"
-    [git]="git --version"
 )
 
 # ─── PATH ──────────────────────────────────────
@@ -19,17 +17,33 @@ add_to_path() {
 }
 
 refresh_path() {
-    local java_exe
-    java_exe=$(find "/c/Program Files" -maxdepth 4 -name "java.exe" 2>/dev/null | head -1)
-    [[ -n "$java_exe" ]] && add_to_path "$(dirname "$java_exe")"
+    add_to_path "$HOME/tools/java/bin"
     add_to_path "$HOME/tools/maven/bin"
-    add_to_path "/c/Program Files/Git/bin"
     hash -r
+
+    # bash_profile mein permanently set karo
+    local profile="$HOME/.bash_profile"
+    grep -q "tools/java/bin" "$profile" 2>/dev/null || echo 'export PATH="$PATH:$HOME/tools/java/bin"' >> "$profile"
+    grep -q "tools/maven/bin" "$profile" 2>/dev/null || echo 'export PATH="$PATH:$HOME/tools/maven/bin"' >> "$profile"
 }
 
 # ─── Install ───────────────────────────────────
 install_java_windows() {
-    winget install Microsoft.OpenJDK.21
+    local java_version="21"
+    local java_url="https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.7%2B6/OpenJDK21U-jdk_x64_windows_hotspot_21.0.7_6.zip"
+    local install_dir="$HOME/tools/java"
+
+    log_info "Downloading Java ${java_version}..."
+    if ! curl -L -f "$java_url" -o "/tmp/java.zip"; then
+        log_error "Java download failed"; return 1
+    fi
+
+    unzip -q "/tmp/java.zip" -d "/tmp/java_extract"
+    rm -rf "$install_dir" && mkdir -p "$install_dir"
+    mv /tmp/java_extract/jdk-*/* "$install_dir/"
+    rm -rf /tmp/java.zip /tmp/java_extract
+
+    log_success "Java installed at $install_dir"
 }
 
 install_maven_windows() {
@@ -46,11 +60,8 @@ install_maven_windows() {
     rm -rf "$install_dir" && mkdir -p "$install_dir"
     mv /tmp/maven_extract/apache-maven-*/* "$install_dir/"
     rm -rf /tmp/maven.zip /tmp/maven_extract
-    log_success "Maven installed at $install_dir"
-}
 
-install_git_windows() {
-    winget install Git.Git
+    log_success "Maven installed at $install_dir"
 }
 
 # ─── Install Tool ──────────────────────────────
