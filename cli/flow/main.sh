@@ -6,12 +6,6 @@ BASE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 source "$BASE_DIR/core/logger.sh"
 source "$BASE_DIR/core/helpers.sh"
 
-#source "$BASE_DIR/core/env.sh"
-
-if is_windows; then
-   # source "$BASE_DIR/core/env.windows.sh"
-   echo ""
-fi
 source "$BASE_DIR/core/defaults.sh"
 
 
