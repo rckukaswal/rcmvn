@@ -43,7 +43,7 @@ log_step "Environment checks and setup in progress...."
 # Environment Check
 create_gitignore
 step_tools
-init_git_repo
+#init_git_repo
 
 # Summary
 log_step "Project Summary"
