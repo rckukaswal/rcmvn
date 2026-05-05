@@ -29,13 +29,17 @@ refresh_path() {
 # ─── Install ───────────────────────────────────
 install_java_windows() {
     local java_version="21"
-    local java_url="2https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.7%2B6/OpenJDK21U-jdk_x64_windows_hotspot_21.0.7_6.zip"
+    local java_url="https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.7%2B6/OpenJDK21U-jdk_x64_windows_hotspot_21.0.7_6.zip"
     local install_dir="$HOME/.devtools/java"
 
     log_info "Downloading Java ${java_version}..."
     if ! curl -L -f -# "$java_url" -o "/tmp/java.zip"; then
-        log_error "Java download failed"; return 1
-    fi
+
+    log_error "Java download failed — Check your internet connection"
+    log_info "Manual download: https://adoptium.net/temurin/releases"
+    
+    return 1
+fi
 
     unzip -q "/tmp/java.zip" -d "/tmp/java_extract"
     rm -rf "$install_dir" && mkdir -p "$install_dir"
@@ -51,8 +55,13 @@ install_maven_windows() {
 
     log_info "Downloading Maven ${maven_version}..."
     if ! curl -L -f -# "$maven_url" -o "/tmp/maven.zip"; then
-        log_error "Maven download failed"; return 1
-    fi
+
+    log_error "Maven download failed — Check your internet connection"
+    log_info "Manual download (Adoptium): https://adoptium.net/temurin/releases"
+    log_info "Manual download (Maven):    https://maven.apache.org/download.cgi"
+
+    return 1
+fi
 
     unzip -q "/tmp/maven.zip" -d "/tmp/maven_extract"
     rm -rf "$install_dir" && mkdir -p "$install_dir"
