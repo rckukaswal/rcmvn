@@ -124,7 +124,7 @@ ensure_tool() {
 }
 
 # ─── Refresh PATH ──────────────────────────────
-rrefresh_path() {
+refresh_path() {
     case "$(get_os)" in
         windows)
             # Dynamically java.exe dhundo aur uska bin add karo
