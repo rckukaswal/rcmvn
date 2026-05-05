@@ -9,7 +9,7 @@ source "$BASE_DIR/core/helpers.sh"
 #source "$BASE_DIR/core/env.sh"
 
 if is_windows; then
-    source "$BASE_DIR/core/env.windows.sh"
+   # source "$BASE_DIR/core/env.windows.sh"
 fi
 source "$BASE_DIR/core/defaults.sh"
 
