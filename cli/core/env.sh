@@ -1,12 +1,9 @@
 #!/bin/bash
 
-source "$BASE_DIR/core/helpers.sh"
-
 # ─── Tool Config ───────────────────────────────
 declare -A TOOL_INSTALL_ID=(
     [java]="Microsoft.OpenJDK.21"
     [git]="Git.Git"
-    # maven winget pe nahi hai, special install hai
 )
 
 declare -A TOOL_VERSION_CMD=(
@@ -20,6 +17,25 @@ declare -A TOOL_CHECK_CMD=(
     [maven]="mvn"
     [git]="git"
 )
+
+# ─── Add to PATH ───────────────────────────────
+add_to_path() {
+    [[ -d "$1" ]] && [[ ":$PATH:" != *":$1:"* ]] && export PATH="$PATH:$1"
+}
+
+# ─── Refresh PATH ──────────────────────────────
+refresh_path() {
+    case "$(get_os)" in
+        windows)
+            local java_bin
+            java_bin=$(find "/c/Program Files" -maxdepth 4 -name "java.exe" 2>/dev/null | head -1 | xargs dirname 2>/dev/null)
+            add_to_path "$java_bin"
+            add_to_path "$HOME/tools/maven/bin"
+            add_to_path "/c/Program Files/Git/bin"
+            ;;
+    esac
+    hash -r
+}
 
 # ─── Install ───────────────────────────────────
 install_tool() {
@@ -46,7 +62,7 @@ install_tool() {
             ;;
         windows)
             if [[ "$tool" == "maven" ]]; then
-                install_maven_windows   # ← special case
+                install_maven_windows
             else
                 winget install "$win_id"
             fi
@@ -74,11 +90,8 @@ install_maven_windows() {
     fi
 
     unzip -q "/tmp/maven.zip" -d "/tmp/maven_extract"
-    
-    # ✅ Pehle clean karo
     rm -rf "$install_dir"
     mkdir -p "$install_dir"
-    
     mv /tmp/maven_extract/apache-maven-*/* "$install_dir/"
     rm -rf /tmp/maven.zip /tmp/maven_extract
 
@@ -103,14 +116,13 @@ check_tool() {
 # ─── Ensure ────────────────────────────────────
 ensure_tool() {
     local tool=$1
-    
-    # Pehle refresh karo — already installed ho sakta hai
+
     refresh_path
-    
+
     if check_tool "$tool"; then
         return 0
     fi
-    
+
     log_warning "$tool not found"
     if skip_prompt "$tool is required. Install now?"; then
         log_info "Installing $tool..."
@@ -130,36 +142,4 @@ ensure_tool() {
     return 1
 }
 
-# ─── Refresh PATH ──────────────────────────────
-refresh_path() {
-    case "$(get_os)" in
-        windows)
-            local java_search_paths=(
-                "/c/Program Files/Microsoft"
-                "/c/Program Files/Java"
-                "/c/Program Files/Eclipse Adoptium"
-                "/c/Program Files/Amazon Corretto"
-            )
-            for search in "${java_search_paths[@]}"; do
-                if [[ -d "$search" ]]; then
-                    local java_bin
-                    java_bin=$(find "$search" -name "java.exe" 2>/dev/null | head -1 | xargs dirname 2>/dev/null)
-                    # Sirf add karo agar already PATH mein nahi hai
-                    if [[ -n "$java_bin" ]] && [[ ":$PATH:" != *":$java_bin:"* ]]; then
-                        export PATH="$PATH:$java_bin"
-                        break
-                    fi
-                fi
-            done
-
-            # Same check maven aur git ke liye
-            [[ -d "$HOME/tools/maven/bin" ]] && [[ ":$PATH:" != *":$HOME/tools/maven/bin:"* ]] && export PATH="$PATH:$HOME/tools/maven/bin"
-            [[ -d "/c/Program Files/Git/bin" ]] && [[ ":$PATH:" != *":/c/Program Files/Git/bin:"* ]] && export PATH="$PATH:/c/Program Files/Git/bin"
-            ;;
-        linux|mac)
-            export PATH="$PATH:/usr/local/bin:/usr/bin"
-            ;;
-    esac
-    hash -r
-}
 refresh_path
