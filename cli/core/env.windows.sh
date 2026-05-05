@@ -33,7 +33,7 @@ install_java_windows() {
     local install_dir="$HOME/.devtools/java"
 
     log_info "Downloading Java ${java_version}..."
-    if ! curl -L -f --progress-bar "$java_url" -o "/tmp/java.zip"; then
+    if ! curl -L -f -# "$java_url" -o "/tmp/java.zip" 2>&1 | tr '#' '█'; then
         log_error "Java download failed"; return 1
     fi
 
