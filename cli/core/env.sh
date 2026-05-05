@@ -60,20 +60,21 @@ install_tool() {
 
 # ─── Maven Windows Special Install ────────────
 install_maven_windows() {
-    local maven_version="3.9.6"
-    local maven_url="https://downloads.apache.org/maven/maven-3/${maven_version}/binaries/apache-maven-${maven_version}-bin.zip"
-    local install_dir="$HOME/tools/maven"   # ✅ Permission issue nahi
+    local maven_version="3.9.9"
+    local maven_url="https://archive.apache.org/dist/maven/maven-3/${maven_version}/binaries/apache-maven-${maven_version}-bin.zip"
+    local install_dir="$HOME/tools/maven"
 
     log_info "Downloading Maven ${maven_version}..."
 
-    curl -L "$maven_url" -o "/tmp/maven.zip"
-    unzip -q "/tmp/maven.zip" -d "/tmp/maven_extract"
+    if ! curl -L -f "$maven_url" -o "/tmp/maven.zip"; then
+        log_error "Maven download failed"
+        return 1
+    fi
 
+    unzip -q "/tmp/maven.zip" -d "/tmp/maven_extract"
     mkdir -p "$install_dir"
     mv /tmp/maven_extract/apache-maven-*/* "$install_dir/"
-
     export PATH="$PATH:$install_dir/bin"
-
     rm -rf /tmp/maven.zip /tmp/maven_extract
 
     log_success "Maven installed at $install_dir"
