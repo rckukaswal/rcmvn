@@ -1,7 +1,29 @@
 #!/bin/bash
 
+# ─── Tool Config ───────────────────────────────
+declare -A TOOL_INSTALL_ID=(
+    [java]="Microsoft.OpenJDK.21"
+    [maven]="Apache.Maven"
+    [git]="Git.Git"
+)
+
+declare -A TOOL_VERSION_CMD=(
+    [java]="java -version"
+    [maven]="mvn -version"
+    [git]="git --version"
+)
+
+declare -A TOOL_CHECK_CMD=(
+    [java]="java"
+    [maven]="mvn"
+    [git]="git"
+)
+
+# ─── Install ───────────────────────────────────
 install_tool() {
     local tool=$1
+    local win_id="${TOOL_INSTALL_ID[$tool]:-$tool}"
+
     case "$(get_os)" in
         linux)
             if command_exists apt; then
@@ -21,7 +43,7 @@ install_tool() {
             brew install "$tool"
             ;;
         windows)
-            winget install "$tool"
+            winget install "$win_id"   # ✅ Sahi ID use hogi
             ;;
         *)
             log_warning "$(get_os): Skipping $tool installation"
@@ -30,17 +52,22 @@ install_tool() {
     esac
 }
 
+# ─── Check ─────────────────────────────────────
 check_tool() {
     local tool=$1
-    if command_exists "$tool"; then
+    local cmd="${TOOL_CHECK_CMD[$tool]:-$tool}"      # mvn for maven
+    local ver_cmd="${TOOL_VERSION_CMD[$tool]:-$tool -version}"
+
+    if command_exists "$cmd"; then
         local version
-        version=$("$tool" -version 2>&1 | sed -n '1p')
+        version=$(${ver_cmd} 2>&1 | sed -n '1p')
         log_success "$tool found: $version"
         return 0
     fi
     return 1
 }
 
+# ─── Ensure ────────────────────────────────────
 ensure_tool() {
     local tool=$1
     if check_tool "$tool"; then
