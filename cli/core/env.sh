@@ -49,6 +49,7 @@ install_tool() {
             log_warning "$(get_os): Skipping $tool installation"
             return 1
             ;;
+             refresh_path
     esac
 }
 
@@ -86,4 +87,29 @@ ensure_tool() {
     fi
     log_warning "Skipping $tool installation"
     return 1
+}
+
+refresh_path() {
+    case "$(get_os)" in
+        windows)
+            # Common install locations dhundo
+            local paths=(
+                "/c/Program Files/Microsoft/*/bin"
+                "/c/Program Files/Java/*/bin"
+                "/c/Program Files/Apache/maven/*/bin"
+                "/c/Program Files/Git/bin"
+            )
+            for p in "${paths[@]}"; do
+                for expanded in $p; do
+                    if [[ -d "$expanded" ]]; then
+                        export PATH="$PATH:$expanded"
+                    fi
+                done
+            done
+            ;;
+        linux|mac)
+            # Linux/Mac mein install ke baad PATH auto update hota hai
+            export PATH="$PATH:/usr/local/bin:/usr/bin"
+            ;;
+    esac
 }
