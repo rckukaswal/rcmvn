@@ -29,7 +29,7 @@ refresh_path() {
 # ─── Install ───────────────────────────────────
 install_java_windows() {
     local java_version="21"
-    local java_url="https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.7%2B6/OpenJDK21U-jdk_x64_windows_hotspot_21.0.7_6.zip"
+    local java_url="2https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.7%2B6/OpenJDK21U-jdk_x64_windows_hotspot_21.0.7_6.zip"
     local install_dir="$HOME/.devtools/java"
 
     log_info "Downloading Java ${java_version}..."
