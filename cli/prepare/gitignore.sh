@@ -75,5 +75,7 @@ mvnw.cmd
 node_modules/
 EOL
 
-    log_success ".gitignore generated"
+    log_success ".gitignore created at $gitignore_file"
+    echo " "
+
 }
