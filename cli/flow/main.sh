@@ -9,9 +9,6 @@ source "$BASE_DIR/core/env.sh"
 source "$BASE_DIR/core/defaults.sh"
 
 
-echo "DEBUG OS: $(get_os)"        # ← OS check
-echo "DEBUG PATH: $PATH" 
-
 # Input
 source "$BASE_DIR/flow/prompt.sh"
 
