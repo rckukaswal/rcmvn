@@ -20,7 +20,7 @@ install_maven() {
         *)
             log_warning " $(get_os): Skipping Maven installation"
             
-             return 1
+             return 0
             ;;
     esac
 }
