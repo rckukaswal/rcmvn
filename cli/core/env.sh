@@ -124,22 +124,19 @@ ensure_tool() {
 }
 
 # ─── Refresh PATH ──────────────────────────────
-refresh_path() {
+rrefresh_path() {
     case "$(get_os)" in
         windows)
-            local paths=(
-                "/c/Program Files/Microsoft/*/bin"
-                "/c/Program Files/Java/*/bin"
-                "$HOME/tools/maven/bin"        # ✅ Updated
-                "/c/Program Files/Git/bin"
-            )
-            for p in "${paths[@]}"; do
-                for expanded in $p; do
-                    if [[ -d "$expanded" ]]; then
-                        export PATH="$PATH:$expanded"
-                    fi
-                done
-            done
+            # Dynamically java.exe dhundo aur uska bin add karo
+            local java_bin
+            java_bin=$(find "/c/Program Files" -name "java.exe" 2>/dev/null | head -1 | xargs dirname 2>/dev/null)
+            [[ -n "$java_bin" ]] && export PATH="$PATH:$java_bin"
+
+            # Maven
+            [[ -d "$HOME/tools/maven/bin" ]] && export PATH="$PATH:$HOME/tools/maven/bin"
+
+            # Git
+            [[ -d "/c/Program Files/Git/bin" ]] && export PATH="$PATH:/c/Program Files/Git/bin"
             ;;
         linux|mac)
             export PATH="$PATH:/usr/local/bin:/usr/bin"
