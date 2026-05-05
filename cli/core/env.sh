@@ -14,7 +14,7 @@ check_tool() {
 install_tool() {
     local tool=$1
     if command_exists apt; then
-        sudo apt update && sudo apt install -y "$tool"
+        sudo apt install -y "$tool"
     elif command_exists dnf; then
         sudo dnf install -y "$tool"
     elif command_exists yum; then
