@@ -29,11 +29,13 @@ ensure_java() {
         return 0
     fi
 
+    
+    log_warning "Java not found"
+
     if is_windows; then
         return 0
     fi
 
-    log_warning "Java not found"
 
     if skip_prompt "Java is required. Install now?"; then
         log_info "Installing Java..."

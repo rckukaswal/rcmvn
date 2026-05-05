@@ -30,12 +30,11 @@ ensure_maven() {
         return 0
     fi
 
-    if is_windows; then
-        install_maven 
+    log_warning "Maven not found"
+    
+     if is_windows; then
         return 0
     fi
-
-    log_warning "Maven not found"
          
     if skip_prompt "Maven is required. Install now?"; then
         log_info "Installing Maven..." 

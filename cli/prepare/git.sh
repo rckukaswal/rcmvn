@@ -27,11 +27,12 @@ ensure_git() {
     if check_git; then
         return 0
     fi
+  
+    log_warning "Git not found"
+    
     if is_windows; then
         return 0
     fi
-    log_warning "Git not found"
-
    
 
     if skip_prompt "Git is required. Install now?"; then
