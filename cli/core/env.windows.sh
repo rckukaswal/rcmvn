@@ -25,6 +25,8 @@ refresh_path() {
     local profile="$HOME/.bash_profile"
     grep -q "tools/java/bin" "$profile" 2>/dev/null || echo 'export PATH="$PATH:$HOME/tools/java/bin"' >> "$profile"
     grep -q "tools/maven/bin" "$profile" 2>/dev/null || echo 'export PATH="$PATH:$HOME/tools/maven/bin"' >> "$profile"
+
+source "$profile" 2>/dev/null
 }
 
 # ─── Install ───────────────────────────────────
