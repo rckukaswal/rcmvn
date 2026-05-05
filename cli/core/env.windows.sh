@@ -17,23 +17,20 @@ add_to_path() {
 }
 
 refresh_path() {
-    add_to_path "$HOME/tools/java/bin"
-    add_to_path "$HOME/tools/maven/bin"
+    add_to_path "$HOME/.devtools/java/bin"
+    add_to_path "$HOME/.devtools/maven/bin"
     hash -r
 
-    # bash_profile mein permanently set karo
     local profile="$HOME/.bash_profile"
-    grep -q "tools/java/bin" "$profile" 2>/dev/null || echo 'export PATH="$PATH:$HOME/tools/java/bin"' >> "$profile"
-    grep -q "tools/maven/bin" "$profile" 2>/dev/null || echo 'export PATH="$PATH:$HOME/tools/maven/bin"' >> "$profile"
-
-source "$profile" 2>/dev/null
+    grep -q ".devtools/java/bin" "$profile" 2>/dev/null || echo 'export PATH="$PATH:$HOME/.devtools/java/bin"' >> "$profile"
+    grep -q ".devtools/maven/bin" "$profile" 2>/dev/null || echo 'export PATH="$PATH:$HOME/.devtools/maven/bin"' >> "$profile"
 }
 
 # ─── Install ───────────────────────────────────
 install_java_windows() {
     local java_version="21"
     local java_url="https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.7%2B6/OpenJDK21U-jdk_x64_windows_hotspot_21.0.7_6.zip"
-    local install_dir="$HOME/tools/java"
+    local install_dir="$HOME/.devtools/java"
 
     log_info "Downloading Java ${java_version}..."
     if ! curl -L -f "$java_url" -o "/tmp/java.zip"; then
@@ -44,14 +41,13 @@ install_java_windows() {
     rm -rf "$install_dir" && mkdir -p "$install_dir"
     mv /tmp/java_extract/jdk-*/* "$install_dir/"
     rm -rf /tmp/java.zip /tmp/java_extract
-
     log_success "Java installed at $install_dir"
 }
 
 install_maven_windows() {
     local maven_version="3.9.9"
     local maven_url="https://archive.apache.org/dist/maven/maven-3/${maven_version}/binaries/apache-maven-${maven_version}-bin.zip"
-    local install_dir="$HOME/tools/maven"
+    local install_dir="$HOME/.devtools/maven"
 
     log_info "Downloading Maven ${maven_version}..."
     if ! curl -L -f "$maven_url" -o "/tmp/maven.zip"; then
@@ -62,7 +58,6 @@ install_maven_windows() {
     rm -rf "$install_dir" && mkdir -p "$install_dir"
     mv /tmp/maven_extract/apache-maven-*/* "$install_dir/"
     rm -rf /tmp/maven.zip /tmp/maven_extract
-
     log_success "Maven installed at $install_dir"
 }
 
