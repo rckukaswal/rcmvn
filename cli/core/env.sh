@@ -132,7 +132,6 @@ ensure_tool() {
 refresh_path() {
     case "$(get_os)" in
         windows)
-            # Sirf common java locations mein dhundo — poora C: nahi!
             local java_search_paths=(
                 "/c/Program Files/Microsoft"
                 "/c/Program Files/Java"
@@ -143,12 +142,17 @@ refresh_path() {
                 if [[ -d "$search" ]]; then
                     local java_bin
                     java_bin=$(find "$search" -name "java.exe" 2>/dev/null | head -1 | xargs dirname 2>/dev/null)
-                    [[ -n "$java_bin" ]] && export PATH="$PATH:$java_bin" && break
+                    # Sirf add karo agar already PATH mein nahi hai
+                    if [[ -n "$java_bin" ]] && [[ ":$PATH:" != *":$java_bin:"* ]]; then
+                        export PATH="$PATH:$java_bin"
+                        break
+                    fi
                 fi
             done
 
-            [[ -d "$HOME/tools/maven/bin" ]] && export PATH="$PATH:$HOME/tools/maven/bin"
-            [[ -d "/c/Program Files/Git/bin" ]] && export PATH="$PATH:/c/Program Files/Git/bin"
+            # Same check maven aur git ke liye
+            [[ -d "$HOME/tools/maven/bin" ]] && [[ ":$PATH:" != *":$HOME/tools/maven/bin:"* ]] && export PATH="$PATH:$HOME/tools/maven/bin"
+            [[ -d "/c/Program Files/Git/bin" ]] && [[ ":$PATH:" != *":/c/Program Files/Git/bin:"* ]] && export PATH="$PATH:/c/Program Files/Git/bin"
             ;;
         linux|mac)
             export PATH="$PATH:/usr/local/bin:/usr/bin"
