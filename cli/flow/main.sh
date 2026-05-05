@@ -12,10 +12,8 @@ source "$BASE_DIR/core/defaults.sh"
 source "$BASE_DIR/flow/prompt.sh"
 
 # Prepare
-source "$BASE_DIR/prepare/java.sh"
-source "$BASE_DIR/prepare/maven.sh"
-source "$BASE_DIR/prepare/git.sh"
 source "$BASE_DIR/prepare/gitignore.sh"
+source "$BASE_DIR/prepare/tools.sh"
 
 # Generators
 source "$BASE_DIR/maven/pom/builder.sh"
