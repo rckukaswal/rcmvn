@@ -54,4 +54,4 @@ echo "  Project Dir  : $base_dir/$project_name"
 echo ""
 
 # Next Steps
-show_next_steps
+#show_next_steps
