@@ -1,34 +1,44 @@
 #!/bin/bash
 
-
-declare -A TOOL_MAP=(
-    [maven]=mvn
-    [java]=java
-    [git]=git
-)
-
-# ─── Check ─────────────────────────────────────
+# Environment Setup and Checks
 check_tool() {
     local tool=$1
-    local tool_version=${TOOL_MAP[$tool]:-$tool}
-    if command_exists "$tool_version"; then
-        log_success "$tool found: $($tool_version --version 2>&1 | sed -n '1p')"
+    local cmd
+    cmd=$(get_tool_cmd "$tool")
+
+    if command_exists "$cmd"; then
+        local version
+        version=$($cmd --version 2>/dev/null | head -n1 || \
+                  $cmd -version 2>/dev/null | head -n1 || \
+                  $cmd -v 2>/dev/null)
+
+        log_success "$tool found: ${version:-version unknown}"
         return 0
     fi
     return 1
 }
 
-# ─── Install ───────────────────────────────────
+
+
 install_tool() {
     local tool=$1
+    local pkg
+    APT_UPDATED=0
+    pkg=$(get_tool_pkg "$tool")
+
     if command_exists apt; then
-        sudo apt install -y "$tool"
+        if [ "$APT_UPDATED" -eq 0 ]; then
+            sudo apt update -y
+            APT_UPDATED=1
+        fi
+        sudo apt install -y "$pkg"
+        
     elif command_exists dnf; then
-        sudo dnf install -y "$tool"
+        sudo dnf install -y "$pkg"
     elif command_exists yum; then
-        sudo yum install -y "$tool"
+        sudo yum install -y "$pkg"
     elif command_exists pacman; then
-        sudo pacman -S "$tool"
+        sudo pacman -S --noconfirm "$pkg"
     else
         log_warning "Package manager not found"
         return 1

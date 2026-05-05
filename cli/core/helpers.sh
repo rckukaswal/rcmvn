@@ -112,3 +112,28 @@ is_windows() {
     [[ "$(get_os)" == "windows" ]]
 }
 
+
+
+# ─── Tool Mapping ──────────────────────────────
+
+declare -A TOOL_CMD_MAP=(
+    [maven]=mvn
+    [java]=java
+    [git]=git
+)
+
+declare -A TOOL_PKG_MAP=(
+    [maven]=maven
+    [java]=default-jdk
+    [git]=git
+)
+
+get_tool_cmd() {
+    local tool=$1
+    echo "${TOOL_CMD_MAP[$tool]:-$tool}"
+}
+
+get_tool_pkg() {
+    local tool=$1
+    echo "${TOOL_PKG_MAP[$tool]:-$tool}"
+}
