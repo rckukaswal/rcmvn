@@ -33,7 +33,7 @@ install_java_windows() {
     local install_dir="$HOME/.devtools/java"
 
     log_info "Downloading Java ${java_version}..."
-    if ! curl -L -f "$java_url" -o "/tmp/java.zip"; then
+    if ! curl -L -f -# "$java_url" -o "/tmp/java.zip"; then
         log_error "Java download failed"; return 1
     fi
 
@@ -50,7 +50,7 @@ install_maven_windows() {
     local install_dir="$HOME/.devtools/maven"
 
     log_info "Downloading Maven ${maven_version}..."
-    if ! curl -L -f "$maven_url" -o "/tmp/maven.zip"; then
+    if ! curl -L -f -# "$maven_url" -o "/tmp/maven.zip"; then
         log_error "Maven download failed"; return 1
     fi
 
