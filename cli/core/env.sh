@@ -146,3 +146,4 @@ refresh_path() {
             ;;
     esac
 }
+refresh_path
