@@ -142,5 +142,6 @@ refresh_path() {
             export PATH="$PATH:/usr/local/bin:/usr/bin"
             ;;
     esac
+    hash -r
 }
 refresh_path
