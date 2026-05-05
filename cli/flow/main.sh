@@ -5,9 +5,9 @@ BASE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 # Common
 source "$BASE_DIR/core/logger.sh"
 source "$BASE_DIR/core/helpers.sh"
-source "$BASE_DIR/core/env.sh"
-# main.sh mein
-source "$BASE_DIR/core/env.sh"
+
+#source "$BASE_DIR/core/env.sh"
+
 if is_windows; then
     source "$BASE_DIR/core/env.windows.sh"
 fi
