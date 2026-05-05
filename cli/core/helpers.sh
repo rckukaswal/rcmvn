@@ -33,17 +33,15 @@ confirm_prompt() {
         exit 0
     fi
 }
+
 skip_prompt() {
     local message="${1:-Skip this step?}"
     local choice
-
     read -p "$message [Y/n] : " choice </dev/tty
     choice=${choice:-Y}
-
     if [[ "$choice" =~ ^[Yy]$ ]]; then
         return 0
     fi
-
     return 1
 }
 
@@ -59,7 +57,6 @@ select_option() {
     local BOLD='\033[1m'
     local RESET='\033[0m'
 
-    # Initial render (only options)
     for i in "${!options[@]}"; do
         if [[ $i -eq $selected ]]; then
             printf "${CYAN}${BOLD}❯ %s${RESET}\n" "${options[$i]}" >&2
@@ -70,7 +67,6 @@ select_option() {
 
     while true; do
         read -rsn1 key </dev/tty
-
         case "$key" in
             $'\x1b')
                 read -rsn2 key </dev/tty
@@ -84,24 +80,9 @@ select_option() {
                         [[ $selected -ge ${#options[@]} ]] && selected=0
                         ;;
                 esac
-
-                # Move to option block start
-                for ((i=0; i<lines; i++)); do
-                    tput cuu1 >&2
-                done
-
-                # Clear option lines
-                for ((i=0; i<lines; i++)); do
-                    tput el >&2
-                    tput cud1 >&2
-                done
-
-                # Move back again
-                for ((i=0; i<lines; i++)); do
-                    tput cuu1 >&2
-                done
-
-                # Redraw options
+                for ((i=0; i<lines; i++)); do tput cuu1 >&2; done
+                for ((i=0; i<lines; i++)); do tput el >&2; tput cud1 >&2; done
+                for ((i=0; i<lines; i++)); do tput cuu1 >&2; done
                 for i in "${!options[@]}"; do
                     if [[ $i -eq $selected ]]; then
                         printf "${CYAN}${BOLD}❯ %s${RESET}\n" "${options[$i]}" >&2
@@ -118,30 +99,15 @@ select_option() {
     done
 }
 
-
-
 get_os() {
     case "$(uname -s)" in
-        Linux*)              echo "linux" ;;
-        Darwin*)             echo "mac" ;;
-        MINGW*|MSYS*|CYGWIN*) echo "windows" ;;
-        *)                   echo "unknown" ;;
+        Linux*)                echo "linux" ;;
+        Darwin*)               echo "mac" ;;
+        MINGW*|MSYS*|CYGWIN*)  echo "windows" ;;
+        *)                     echo "unknown" ;;
     esac
 }
 
 is_windows() {
     [[ "$(get_os)" == "windows" ]]
-}
-
-show_next_steps() {
-    echo "Next Steps:"
-    if is_windows; then
-        echo "   $(get_os) detected"
-        echo "   Open project in IntelliJ or Eclipse"
-        echo "   Import as Maven project"
-    else
-        echo "   cd $project_name"
-        echo "   mvn test"
-    fi
-    echo ""
 }

@@ -5,6 +5,7 @@ BASE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 # Common
 source "$BASE_DIR/core/logger.sh"
 source "$BASE_DIR/core/helpers.sh"
+source "$BASE_DIR/core/env.sh"
 source "$BASE_DIR/core/defaults.sh"
 
 # Input
@@ -41,9 +42,7 @@ log_step "Environment checks and setup in progress...."
 
 # Environment Check
 create_gitignore
-ensure_java
-ensure_maven
-ensure_git
+step_tools
 init_git_repo
 
 # Summary

@@ -9,20 +9,9 @@ check_java() {
 }
 
 install_java() {
-    local os=$(get_os)
-    case "$os" in
-        linux)
-            sudo apt update && sudo apt install -y openjdk-21-jdk
-            ;;
-        mac)
-            brew install openjdk@21
-            ;;
-        *)
-            log_info "Skipping Java installation"
-            return 1
-            ;;
-    esac
+    install_tool java
 }
+
 
 ensure_java() {
     if check_java; then
@@ -31,10 +20,6 @@ ensure_java() {
 
     
     log_warning "Java not found"
-
-    if is_windows; then
-        return 0
-    fi
 
 
     if skip_prompt "Java is required. Install now?"; then

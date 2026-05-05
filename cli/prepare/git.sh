@@ -8,19 +8,8 @@ check_git() {
     return 1
 }
 
-install_git() {
-    case "$(get_os)" in
-        linux)
-            sudo apt update && sudo apt install -y git
-            ;;
-        mac)
-            brew install git
-            ;;
-        *)
-            log_info "$(get_os) detected — Download Git: https://git-scm.com/download/win"
-            return 1
-            ;;
-    esac
+iinstall_git() {
+    install_tool git
 }
 
 ensure_git() {
@@ -29,11 +18,7 @@ ensure_git() {
     fi
   
     log_warning "Git not found"
-    
-    if is_windows; then
-        return 0
-    fi
-   
+
 
     if skip_prompt "Git is required. Install now?"; then
         log_info "Installing Git..."
