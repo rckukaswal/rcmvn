@@ -72,9 +72,12 @@ install_maven_windows() {
     fi
 
     unzip -q "/tmp/maven.zip" -d "/tmp/maven_extract"
+    
+    # ✅ Pehle clean karo
+    rm -rf "$install_dir"
     mkdir -p "$install_dir"
+    
     mv /tmp/maven_extract/apache-maven-*/* "$install_dir/"
-    export PATH="$PATH:$install_dir/bin"
     rm -rf /tmp/maven.zip /tmp/maven_extract
 
     log_success "Maven installed at $install_dir"
