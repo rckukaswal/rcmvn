@@ -49,8 +49,10 @@ install_tool() {
             log_warning "$(get_os): Skipping $tool installation"
             return 1
             ;;
-             refresh_path
+            
     esac
+
+     refresh_path
 }
 
 # ─── Check ─────────────────────────────────────
