@@ -13,5 +13,5 @@ generate_testdata_excel() {
         return 1
     fi
 
-    log_info "testdata.xlsx copied"
+    #log_info "testdata.xlsx copied"
 }

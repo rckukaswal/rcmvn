@@ -34,12 +34,13 @@ log_step "Starting Maven Project Generation"
 create_dir "$base_dir/$project_name"
 build_pom
 build_framework "$base_dir/$project_name" "$package_path" "$package_name"
-create_gitignore
+
 
 log_success "Project '$project_name' generated successfully!"
 log_step "Environment checks and setup in progress...."
 
 # Environment Check
+create_gitignore
 ensure_java
 ensure_maven
 ensure_git

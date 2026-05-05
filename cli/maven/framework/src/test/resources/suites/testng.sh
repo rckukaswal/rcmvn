@@ -19,5 +19,5 @@ generate_testng() {
     </test>
 </suite>
 EOF
-    log_success "testng.xml generated"
+  #  log_success "testng.xml generated"
 }
