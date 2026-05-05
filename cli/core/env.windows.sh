@@ -88,10 +88,8 @@ ensure_tool() {
     refresh_path
     check_tool "$tool" && return 0
 
-echo ""
-log_warning "$tool not found — Install to use directly in Git Bash."
-
-if skip_prompt "Install $tool?"; then
+log_warning "$tool not found — required to use directly in Git Bash."
+if skip_prompt "Proceed?"; then
 
     if install_tool "$tool" && check_tool "$tool"; then
         log_success "$tool installed successfully"
