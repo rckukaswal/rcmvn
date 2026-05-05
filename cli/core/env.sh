@@ -28,7 +28,7 @@ refresh_path() {
     case "$(get_os)" in
         windows)
             local java_bin
-            java_bin=$(find "/c/Program Files" -maxdepth 4 -name "java.exe" 2>/dev/null | head -1 | xargs dirname 2>/dev/null)
+            java_bin=$(find "/c/Program Files" -maxdepth 4 -name "java.exe" 2>/dev/null | head -1 | xargs dirname 2>/dev/null | tr -d '\n')
             add_to_path "$java_bin"
             add_to_path "$HOME/tools/maven/bin"
             add_to_path "/c/Program Files/Git/bin"
