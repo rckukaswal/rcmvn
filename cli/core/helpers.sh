@@ -112,9 +112,9 @@ is_windows() {
     [[ "$(get_os)" == "windows" ]]
 }
 
-
+source "$BASE_DIR/core/env.sh"
 if is_windows; then
     source "$BASE_DIR/core/env.windows.sh"
 else
-    source "$BASE_DIR/core/env.sh"
+    
 fi
