@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$BASE_DIR/core/helpers.sh"
+
 # ─── Tool Config ───────────────────────────────
 declare -A TOOL_INSTALL_ID=(
     [java]="Microsoft.OpenJDK.21"
