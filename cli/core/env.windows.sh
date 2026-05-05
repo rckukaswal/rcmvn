@@ -71,14 +71,14 @@ fi
 }
 
 # ─── Install Tool ──────────────────────────────
-install_tool() {
+install_win_tool() {
     local tool=$1
     install_${tool}_windows
     refresh_path
 }
 
 # ─── Check ─────────────────────────────────────
-check_tool() {
+check_win_tool() {
     local tool=$1
     local cmd="${TOOL_CHECK_CMD[$tool]:-$tool}"
     local ver_cmd="${TOOL_VERSION_CMD[$tool]:-$tool --version}"
@@ -92,16 +92,18 @@ check_tool() {
 }
 
 # ─── Ensure ────────────────────────────────────
-ensure_tool() {
+ensure_win_tool() {
     local tool=$1
 
     refresh_path
-    check_tool "$tool" && return 0
+    check_win_tool "$tool" && return 0
 echo ""
+
+
 log_warning "$tool not found — required to use directly in Git Bash."
 if skip_prompt "Proceed?"; then
 
-    if install_tool "$tool" && check_tool "$tool"; then
+    if install_win_tool "$tool" && check_win_tool "$tool"; then
         log_success "$tool installed successfully"
         return 0
     fi

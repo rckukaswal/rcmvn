@@ -30,6 +30,11 @@ install_tool() {
 # ─── Ensure ────────────────────────────────────
 ensure_tool() {
     local tool=$1
+
+if is_windows;then
+    ensure_win_tool "$tool" && return 0
+else
+
     check_tool "$tool" && return 0
 
     log_warning "$tool not found"
@@ -44,4 +49,5 @@ ensure_tool() {
     fi
     log_warning "Skipping $tool installation"
     return 1
+    fi
 }
