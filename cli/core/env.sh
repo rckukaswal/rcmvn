@@ -1,10 +1,18 @@
 #!/bin/bash
 
+
+declare -A TOOL_MAP=(
+    [maven]=mvn
+    [java]=java
+    [git]=git
+)
+
 # ─── Check ─────────────────────────────────────
 check_tool() {
     local tool=$1
-    if command_exists "$tool"; then
-        log_success "$tool found: $($tool --version 2>&1 | sed -n '1p')"
+    local tool_version=${TOOL_MAP[$tool]:-$tool}
+    if command_exists "$tool_version"; then
+        log_success "$tool found: $($tool_version --version 2>&1 | sed -n '1p')"
         return 0
     fi
     return 1
