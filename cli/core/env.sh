@@ -101,13 +101,18 @@ check_tool() {
 # ─── Ensure ────────────────────────────────────
 ensure_tool() {
     local tool=$1
+    
+    # Pehle refresh karo — already installed ho sakta hai
+    refresh_path
+    
     if check_tool "$tool"; then
         return 0
     fi
+    
     log_warning "$tool not found"
     if skip_prompt "$tool is required. Install now?"; then
         log_info "Installing $tool..."
-        if install_tool "$tool"; then        # ✅ install check karo
+        if install_tool "$tool"; then
             if check_tool "$tool"; then
                 log_success "$tool installed successfully"
                 return 0
@@ -115,7 +120,7 @@ ensure_tool() {
             log_error "$tool installation failed"
             return 1
         else
-            log_error "$tool installation failed"  
+            log_error "$tool installation failed"
             return 1
         fi
     fi
