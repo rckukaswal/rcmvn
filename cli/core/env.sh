@@ -3,8 +3,8 @@
 # ─── Tool Config ───────────────────────────────
 declare -A TOOL_INSTALL_ID=(
     [java]="Microsoft.OpenJDK.21"
-    [maven]="Apache.Maven"
     [git]="Git.Git"
+    # maven winget pe nahi hai, special install hai
 )
 
 declare -A TOOL_VERSION_CMD=(
@@ -43,22 +43,46 @@ install_tool() {
             brew install "$tool"
             ;;
         windows)
-            winget install "$win_id"   # ✅ Sahi ID use hogi
+            if [[ "$tool" == "maven" ]]; then
+                install_maven_windows   # ← special case
+            else
+                winget install "$win_id"
+            fi
             ;;
         *)
             log_warning "$(get_os): Skipping $tool installation"
             return 1
             ;;
-            
     esac
 
-     refresh_path
+    refresh_path
+}
+
+# ─── Maven Windows Special Install ────────────
+install_maven_windows() {
+    local maven_version="3.9.6"
+    local maven_url="https://downloads.apache.org/maven/maven-3/${maven_version}/binaries/apache-maven-${maven_version}-bin.zip"
+    local install_dir="$HOME/tools/maven"   # ✅ Permission issue nahi
+
+    log_info "Downloading Maven ${maven_version}..."
+
+    curl -L "$maven_url" -o "/tmp/maven.zip"
+    unzip -q "/tmp/maven.zip" -d "/tmp/maven_extract"
+
+    mkdir -p "$install_dir"
+    mv /tmp/maven_extract/apache-maven-*/* "$install_dir/"
+
+    export PATH="$PATH:$install_dir/bin"
+
+    rm -rf /tmp/maven.zip /tmp/maven_extract
+
+    log_success "Maven installed at $install_dir"
 }
 
 # ─── Check ─────────────────────────────────────
 check_tool() {
     local tool=$1
-    local cmd="${TOOL_CHECK_CMD[$tool]:-$tool}"      # mvn for maven
+    local cmd="${TOOL_CHECK_CMD[$tool]:-$tool}"
     local ver_cmd="${TOOL_VERSION_CMD[$tool]:-$tool -version}"
 
     if command_exists "$cmd"; then
@@ -91,14 +115,14 @@ ensure_tool() {
     return 1
 }
 
+# ─── Refresh PATH ──────────────────────────────
 refresh_path() {
     case "$(get_os)" in
         windows)
-            # Common install locations dhundo
             local paths=(
                 "/c/Program Files/Microsoft/*/bin"
                 "/c/Program Files/Java/*/bin"
-                "/c/Program Files/Apache/maven/*/bin"
+                "$HOME/tools/maven/bin"        # ✅ Updated
                 "/c/Program Files/Git/bin"
             )
             for p in "${paths[@]}"; do
@@ -110,7 +134,6 @@ refresh_path() {
             done
             ;;
         linux|mac)
-            # Linux/Mac mein install ke baad PATH auto update hota hai
             export PATH="$PATH:/usr/local/bin:/usr/bin"
             ;;
     esac
