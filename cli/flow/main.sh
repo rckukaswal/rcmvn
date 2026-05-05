@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+#set -e
 BASE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
 # Common
