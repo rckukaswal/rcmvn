@@ -89,9 +89,8 @@ ensure_tool() {
     check_tool "$tool" && return 0
 
 log_warning "$tool not found"
-
-log_info "Using IDE (IntelliJ/Eclipse)? Skip — IDE handles $tool."
-log_info "Using Git Bash directly? Install now."
+echo ""
+log_info "Using IDE (IntelliJ/Eclipse)? Skip — IDE handles $tool."\n"Using Git Bash directly? Install now."
 
 if skip_prompt "Install $tool?"; then
     if install_tool "$tool" && check_tool "$tool"; then
