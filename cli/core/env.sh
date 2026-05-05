@@ -127,15 +127,22 @@ ensure_tool() {
 refresh_path() {
     case "$(get_os)" in
         windows)
-            # Dynamically java.exe dhundo aur uska bin add karo
-            local java_bin
-            java_bin=$(find "/c/Program Files" -name "java.exe" 2>/dev/null | head -1 | xargs dirname 2>/dev/null)
-            [[ -n "$java_bin" ]] && export PATH="$PATH:$java_bin"
+            # Sirf common java locations mein dhundo — poora C: nahi!
+            local java_search_paths=(
+                "/c/Program Files/Microsoft"
+                "/c/Program Files/Java"
+                "/c/Program Files/Eclipse Adoptium"
+                "/c/Program Files/Amazon Corretto"
+            )
+            for search in "${java_search_paths[@]}"; do
+                if [[ -d "$search" ]]; then
+                    local java_bin
+                    java_bin=$(find "$search" -name "java.exe" 2>/dev/null | head -1 | xargs dirname 2>/dev/null)
+                    [[ -n "$java_bin" ]] && export PATH="$PATH:$java_bin" && break
+                fi
+            done
 
-            # Maven
             [[ -d "$HOME/tools/maven/bin" ]] && export PATH="$PATH:$HOME/tools/maven/bin"
-
-            # Git
             [[ -d "/c/Program Files/Git/bin" ]] && export PATH="$PATH:/c/Program Files/Git/bin"
             ;;
         linux|mac)
