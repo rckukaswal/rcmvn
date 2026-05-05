@@ -10,6 +10,7 @@ source "$BASE_DIR/core/helpers.sh"
 
 if is_windows; then
    # source "$BASE_DIR/core/env.windows.sh"
+   echo ""
 fi
 source "$BASE_DIR/core/defaults.sh"
 
