@@ -89,7 +89,9 @@ ensure_tool() {
     check_tool "$tool" && return 0
 
 log_warning "$tool not found"
-if skip_prompt "rcmvn will install its own $tool (won't affect your system). Install now?"; then
+log_info "Skip if you use IDE (IntelliJ/Eclipse) — it manages $tool itself."
+log_info "Install only if you want to use $tool directly in Git Bash."
+if skip_prompt "Install $tool for Git Bash?"; then
     log_info "Installing $tool..."
     if install_tool "$tool" && check_tool "$tool"; then
         log_success "$tool installed successfully"
