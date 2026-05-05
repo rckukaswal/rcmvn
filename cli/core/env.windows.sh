@@ -84,7 +84,8 @@ check_tool() {
     local ver_cmd="${TOOL_VERSION_CMD[$tool]:-$tool --version}"
 
     if command_exists "$cmd"; then
-        log_success "$tool found: $(${ver_cmd} 2>&1 | sed -n '1p')"
+       
+        log_success "$tool found: $(${ver_cmd} 2>&1 | sed -n '1p' | cut -d'(' -f1 | xargs)"
         return 0
     fi
     return 1
