@@ -88,18 +88,18 @@ ensure_tool() {
     refresh_path
     check_tool "$tool" && return 0
 
-    log_warning "$tool not found"
-    if skip_prompt "$tool is required. Install now?"; then
-        log_info "Installing $tool..."
-        if install_tool "$tool" && check_tool "$tool"; then
-            log_success "$tool installed successfully"
-            return 0
-        fi
-        log_error "$tool installation failed"
-        return 1
+log_warning "$tool not found"
+if skip_prompt "rcmvn will install its own $tool (won't affect your system). Install now?"; then
+    log_info "Installing $tool..."
+    if install_tool "$tool" && check_tool "$tool"; then
+        log_success "$tool installed successfully"
+        return 0
     fi
-    log_warning "Skipping $tool installation"
+    log_error "$tool installation failed"
     return 1
+fi
+log_warning "Skipping $tool installation"
+return 1
 }
 
 refresh_path
