@@ -45,7 +45,7 @@ log_step "Environment checks and setup in progress...."
 
 # Environment Check
 create_gitignore
-install_tools
+set_install_defaults
 #init_git_repo
 
 # Summary
