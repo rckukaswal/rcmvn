@@ -28,5 +28,6 @@ sed -i '/alias rcmvn=/d' "$HOME/.bashrc"
 echo "alias rcmvn='bash \$HOME/.mvngen/cli/flow/runner.sh'" >> "$HOME/.bashrc"
 echo "✅ Alias 'rcmvn' updated"
 echo "ℹ️  Run: source ~/.bashrc"
+echo 'source ~/.bashrc' >> ~/.bash_profile
 
 bash "$START_SCRIPT"

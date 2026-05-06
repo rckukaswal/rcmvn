@@ -1,15 +1,5 @@
 #!/bin/bash
 
-# ─── Tool Config ───────────────────────────────
-declare -A TOOL_CHECK_CMD=(
-    [java]="java"
-    [maven]="mvn"
-)
-
-declare -A TOOL_VERSION_CMD=(
-    [java]="java -version"
-    [maven]="mvn -version"
-)
 
 # ─── PATH ──────────────────────────────────────
 add_to_path() {
@@ -80,12 +70,13 @@ install_win_tool() {
 # ─── Check ─────────────────────────────────────
 check_win_tool() {
     local tool=$1
-    local cmd="${TOOL_CHECK_CMD[$tool]:-$tool}"
-    local ver_cmd="${TOOL_VERSION_CMD[$tool]:-$tool --version}"
+    local cmd
+    cmd=$(get_tool_cmd "$tool")
 
     if command_exists "$cmd"; then
-       
-        log_success "$tool found: $(${ver_cmd} 2>&1 | sed -n '1p' | cut -d'(' -f1 | xargs)"
+        local version
+        version=$(get_tool_version "$cmd")
+        log_success "$tool found: ${version:-version unknown}"
         return 0
     fi
     return 1
@@ -94,7 +85,6 @@ check_win_tool() {
 # ─── Ensure ────────────────────────────────────
 ensure_win_tool() {
     local tool=$1
-
     refresh_path
     check_win_tool "$tool" && return 0
 echo ""

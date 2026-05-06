@@ -116,24 +116,42 @@ is_windows() {
 
 # ─── Tool Mapping ──────────────────────────────
 
-declare -A TOOL_CMD_MAP=(
-    [maven]=mvn
-    [java]=java
-    [git]=git
-)
-
-declare -A TOOL_PKG_MAP=(
-    [maven]=maven
-    [java]=default-jdk
-    [git]=git
-)
-
 get_tool_cmd() {
     local tool=$1
+    declare -A TOOL_CMD_MAP=(
+        [maven]=mvn
+        [java]=java
+        [git]=git
+    )
     echo "${TOOL_CMD_MAP[$tool]:-$tool}"
 }
 
 get_tool_pkg() {
     local tool=$1
+    declare -A TOOL_PKG_MAP=(
+        [maven]=maven
+        [java]=default-jdk
+        [git]=git
+    )
     echo "${TOOL_PKG_MAP[$tool]:-$tool}"
+}
+
+
+get_tool_version() {
+    local cmd=$1
+    $cmd --version 2>/dev/null | head -n1 || \
+    $cmd -version  2>/dev/null | head -n1 || \
+    $cmd -v        2>/dev/null
+}
+
+install_tool() {
+    if is_windows; then
+        for tool in "${WIN_TOOLS[@]}"; do
+            ensure_win_tool "$tool"
+        done
+    else
+        for tool in "${LINUX_TOOLS[@]}"; do
+            ensure_tool "$tool"
+        done
+    fi
 }

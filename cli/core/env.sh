@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ APT_UPDATED=0
+
 # Environment Setup and Checks
 check_tool() {
     local tool=$1
@@ -8,10 +10,7 @@ check_tool() {
 
     if command_exists "$cmd"; then
         local version
-        version=$($cmd --version 2>/dev/null | head -n1 || \
-                  $cmd -version 2>/dev/null | head -n1 || \
-                  $cmd -v 2>/dev/null)
-
+        version=$(get_tool_version "$cmd")
         log_success "$tool found: ${version:-version unknown}"
         return 0
     fi
@@ -19,11 +18,10 @@ check_tool() {
 }
 
 
-
 install_tool() {
     local tool=$1
     local pkg
-    APT_UPDATED=0
+   
     pkg=$(get_tool_pkg "$tool")
 
     if command_exists apt; then
@@ -48,10 +46,6 @@ install_tool() {
 # ─── Ensure ────────────────────────────────────
 ensure_tool() {
     local tool=$1
-
-if is_windows;then
-    ensure_win_tool "$tool" && return 0
-else
 
     check_tool "$tool" && return 0
 

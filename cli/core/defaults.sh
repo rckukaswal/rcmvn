@@ -14,3 +14,9 @@ set_allure_defaults() {
 set_config_defaults() {
     set_allure_defaults
 }
+
+set_install_defaults() {
+   WIN_TOOLS=(java maven)
+    LINUX_TOOLS=(java maven git)
+   
+}
