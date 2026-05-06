@@ -61,5 +61,5 @@ ensure_tool() {
     fi
     log_warning "Skipping $tool installation"
     return 1
-    fi
+    
 }
