@@ -139,9 +139,9 @@ get_tool_pkg() {
 
 get_tool_version() {
     local cmd=$1
-    $cmd --version 2>/dev/null | head -n1 || \
-    $cmd -version  2>/dev/null | head -n1 || \
-    $cmd -v        2>/dev/null
+    $cmd --version 2>/dev/null | head -n1 | cut -d'(' -f1 | xargs || \
+    $cmd -version  2>/dev/null | head -n1 | cut -d'(' -f1 | xargs || \
+    $cmd -v        2>/dev/null | head -n1 | cut -d'(' -f1 | xargs
 }
 
 install_tools() {
