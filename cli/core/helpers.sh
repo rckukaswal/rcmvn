@@ -144,7 +144,7 @@ get_tool_version() {
     $cmd -v        2>/dev/null
 }
 
-install_tool() {
+install_tools() {
     if is_windows; then
         for tool in "${WIN_TOOLS[@]}"; do
             ensure_win_tool "$tool"
