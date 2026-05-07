@@ -1,7 +1,9 @@
 #!/bin/bash
 
 is_windows || return 0
-
+case "$(get_os)" in
+    mac|windows) grep -q 'source ~/.bashrc' ~/.bash_profile || echo 'source ~/.bashrc' >> ~/.bash_profile ;;
+esac
 # ─── PATH ──────────────────────────────────────
 add_to_path() {
     [[ -d "$1" ]] && [[ ":$PATH:" != *":$1:"* ]] && export PATH="$PATH:$1"
