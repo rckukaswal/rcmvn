@@ -1,4 +1,5 @@
-# rcmvn — ##Selenium Automation Framework Generator
+# rcmvn 
+> Selenium Automation Framework Generator
 
 <p align="center">
   <strong>Stop setting up. Start testing.</strong><br/>
