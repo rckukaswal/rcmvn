@@ -72,11 +72,11 @@ select_option() {
                 read -rsn2 key </dev/tty
                 case "$key" in
                     "[A")
-                        ((selected--))
+                        ((selected--)) || true
                         [[ $selected -lt 0 ]] && selected=$((${#options[@]} - 1))
                         ;;
                     "[B")
-                        ((selected++))
+                        ((selected++)) || true
                         [[ $selected -ge ${#options[@]} ]] && selected=0
                         ;;
                 esac
