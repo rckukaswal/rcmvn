@@ -1,5 +1,5 @@
 #!/bin/bash
-BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+
 POM_COMPONENTS="$BASE_DIR/maven/pom/components"
 
 source "$POM_COMPONENTS/versions.sh"

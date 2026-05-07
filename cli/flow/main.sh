@@ -3,7 +3,6 @@
 
 BASE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
-
 # Common
 source "$BASE_DIR/core/logger.sh"
 
