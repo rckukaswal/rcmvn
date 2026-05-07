@@ -35,14 +35,35 @@ Every time you start a new automation project, you go through the same painful c
 
 ```
 Without rcmvn          →   With rcmvn
-─────────────────────────────────────────
+─────────────────────────────────────────────────
 2-3 hours of setup     →   30 seconds
 Manual pom.xml         →   Auto-generated with correct versions
 Copy-paste boilerplate →   Fresh, clean code every time
 Forgetting a file      →   Nothing missed, ever
+No IDE? Stuck.         →   Full setup from terminal — no IDE needed
 ```
 
 One command. Answer a few prompts. Your entire framework is ready.
+
+---
+
+## ⚡ Features
+
+| Feature | Details |
+|---|---|
+| 🔁 **Second-run ready** | Run `rcmvn` again anytime — no reinstall needed, alias persists globally |
+| 🌐 **No URL required** | Base URL is optional — sensible defaults provided, skip if not needed |
+| ☕ **Auto Java install** | Detects if Java is missing and installs it automatically |
+| 🔧 **Auto Maven install** | Detects if Maven is missing and installs it automatically |
+| 🐙 **Auto Git install** | Detects if Git is missing and installs it automatically |
+| 📌 **Version check** | Verifies installed tool versions at every run — no silent failures |
+| 🔄 **Always latest** | Auto-pulls latest templates on every run — no manual update ever needed |
+| 📡 **Offline fallback** | No internet? Runs on last downloaded version without crashing |
+| 📂 **Download location printed** | Terminal prints exact path where your project is created |
+| 🎮 **Full control** | Arrow-key interactive navigation — no typing needed for options |
+| 🌿 **Git config support** | Sets up git config without needing any IDE |
+| 🚗 **All drivers included** | Chrome, Firefox, Edge — all supported out of the box |
+| 💡 **Hints at every step** | Input format hints shown at each prompt — nothing left to guess |
 
 ---
 
@@ -55,28 +76,23 @@ source ~/.bashrc
 
 The `rcmvn` command is now available globally from anywhere on your system.
 
-**Prerequisites**
-
-| Tool   | Required For              | Install                        |
-|--------|---------------------------|--------------------------------|
-| `git`  | Install & auto-update     | Pre-installed on most systems  |
-| `bash` | Run the CLI               | Pre-installed on most systems  |
-| `java` | Build the generated project | [adoptium.net](https://adoptium.net) |
-| `mvn`  | Run tests                 | [maven.apache.org](https://maven.apache.org/download.cgi) |
-
-> `java` and `mvn` are only needed to build and run the generated project — not to generate it.
+> **Requires:** `git`, `bash` — everything else (Java, Maven) is handled automatically.  
+> **Supported OS:** Linux, macOS, Windows (Git Bash)
 
 ---
 
 ## 🚀 Usage
 
-Go to the directory where you want your project created, then run:
+### First time or any time — same command
+
+Navigate to the folder where you want your project created:
 
 ```bash
+cd ~/projects
 rcmvn
 ```
 
-The CLI walks you through everything:
+The CLI walks you through everything with arrow-key navigation:
 
 ```
 ┌──────────────────────────────────────────────┐
@@ -100,6 +116,11 @@ The CLI walks you through everything:
 
   ▶  Project Details
   ──────────────────────────────────────────
+  Input Format Guide:
+    Project Name : company-purpose
+    Group ID     : domain.company
+    Base Package : domain.company.purpose
+
   Enter Project Name [my-project]  : myapp-tests
   Enter Group ID     [com.rc]      : com.mycompany
 
@@ -119,23 +140,108 @@ The CLI walks you through everything:
   ✔  Framework generated
   ✔  .gitignore ready
   ✔  Project 'myapp-tests' generated successfully!
+
+  Project Name : myapp-tests
+  Project Dir  : /home/user/projects/myapp-tests
 ```
 
-Open the project in your IDE and start writing tests.
+> **Project Dir** is printed in the terminal — you always know exactly where your project was created.
+
+---
+
+## 🔄 Auto-Update — Always Latest, Always Safe
+
+Every time you run `rcmvn`, it checks if a newer version is available on GitHub.
+
+**If up to date:**
+```
+  ✔  Already up to date — 07 May 2025 10:30 AM
+```
+
+**If update available — silently pulls latest:**
+```
+  ✔  Updated — 07 May 2025 10:32 AM
+```
+
+**If no internet — falls back gracefully:**
+```
+  ⚠  No network detected
+  ℹ  Running current version
+```
+
+No crashes. No broken runs. Whether online or offline — `rcmvn` always works.
+
+---
+
+## ☕ Auto Tool Setup — Java, Maven, Git
+
+`rcmvn` checks for required tools before generating your project. If anything is missing, it offers to install it for you — right from the terminal, no IDE needed.
+
+```
+  ⚠  java not found — required to use directly in Git Bash.
+  Install now? [Y/n] : Y
+
+  ℹ  Downloading Java 21...
+  ✔  Java installed at ~/.devtools/java
+
+  ✔  java found: openjdk 21.0.7 2025-04-15
+```
+
+**What gets auto-installed if missing:**
+
+| Tool  | Version | Install Location        |
+|-------|---------|-------------------------|
+| Java  | 21 (Temurin) | `~/.devtools/java` |
+| Maven | 3.9.9   | `~/.devtools/maven`     |
+| Git   | Latest via package manager | System |
+
+> PATH is updated automatically in `~/.bashrc` / `~/.bash_profile` — no manual config needed.
+
+---
+
+## 🌿 Git Config — Without an IDE
+
+After project generation, `rcmvn` helps you set up Git for your project — entirely from the terminal.
+
+No IDE required. Useful for CI environments, remote servers, or just preferring the terminal.
+
+```bash
+git config --global user.name  "Your Name"
+git config --global user.email "you@example.com"
+```
+
+`rcmvn` guides you through this step interactively so you don't have to remember the commands.
+
+---
+
+## 🚗 Driver Support — All Browsers, Zero Config
+
+`DriverFactory.java` is generated with full support for all major browsers. WebDriverManager handles driver binaries automatically — no manual `chromedriver` download ever needed.
+
+```java
+// Chrome (default)
+driver = DriverFactory.getDriver("chrome");
+
+// Firefox
+driver = DriverFactory.getDriver("firefox");
+
+// Edge
+driver = DriverFactory.getDriver("edge");
+```
+
+Switching browsers is one word change. Cross-browser suite XML is also generated automatically.
 
 ---
 
 ## 🧩 Framework Levels
 
-Choose the level that matches your project's needs. Each level builds on top of the previous one.
+Choose the level that matches your project's needs. Each level builds on the previous one.
 
 ---
 
 ### 🟢 Beginner — Clean & Minimal
 
 Best for: Learning Selenium, small projects, quick POCs.
-
-**What you get:**
 
 ```
 pom.xml
@@ -146,8 +252,8 @@ pom.xml
 src/
   └── DriverFactory.java     — Chrome, Firefox, Edge support
   └── BaseTest.java          — @BeforeMethod / @AfterMethod setup
-  └── AppTest.java           — Sample test to start from
-  └── testng.xml             — Ready-to-run suite
+  └── AppTest.java           — Sample test ready to run
+  └── testng.xml             — Ready-to-run suite file
 ```
 
 ---
@@ -191,7 +297,7 @@ testdata/
 
 ### 🔴 Advanced — Production Grade
 
-Best for: Enterprise projects, parallel execution, full reporting.
+Best for: Enterprise projects, parallel execution, full reporting stack.
 
 **Everything in Intermediate, plus:**
 
@@ -205,8 +311,6 @@ src/
   └── log4j2.xml                  — Console + rolling file logging
   └── env.properties              — Environment-specific config
 ```
-
-**Full dependency list available in `cli/config/advanced.config`**
 
 ---
 
@@ -262,30 +366,14 @@ your-project/
 
 ---
 
-## 🔄 Auto-Update
-
-Every time you run `rcmvn`, it silently checks if a newer version is available. If yes, it pulls the latest changes before running. You always get the latest templates — no manual reinstall needed.
-
-```
-  ✔  Already up to date — 07 May 2025 10:30 AM
-```
-
-or
-
-```
-  ✔  Updated — 07 May 2025 10:30 AM
-```
-
----
-
 ## 🖥️ Platform Support
 
-| Platform                  | Status           |
-|---------------------------|------------------|
-| Linux                     | ✅ Full support   |
-| macOS                     | ✅ Full support   |
-| Windows — Git Bash        | ✅ Full support   |
-| Windows — CMD / PowerShell | ❌ Not supported |
+| Platform                   | Status            |
+|----------------------------|-------------------|
+| Linux                      | ✅ Full support    |
+| macOS                      | ✅ Full support    |
+| Windows — Git Bash         | ✅ Full support    |
+| Windows — CMD / PowerShell | ❌ Not supported  |
 
 > On Windows, use [Git Bash](https://git-scm.com/downloads) or [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
 
@@ -293,12 +381,12 @@ or
 
 ## 🔧 Reinstall / Reset
 
+To wipe and reinstall the latest version:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/rckukaswal/rcmvn/refs/heads/main/cli/setup.sh | bash
 source ~/.bashrc
 ```
-
-This will wipe the existing install and pull the latest version fresh.
 
 ---
 
@@ -319,7 +407,6 @@ Have an idea or found a bug? [Open an issue](https://github.com/rckukaswal/rcmvn
 ## 👤 Author
 
 **Ramchandra Kukaswal**
-
 - GitHub: [@rckukaswal](https://github.com/rckukaswal)
 
 ---
