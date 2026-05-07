@@ -1,6 +1,6 @@
 #!/bin/bash
 
-POM_COMPONENTS="$BASE_DIR/maven/pom/components"
+POM_COMPONENTS="$CLI_DIR/maven/pom/components"
 
 source "$POM_COMPONENTS/versions.sh"
 source "$POM_COMPONENTS/dependencies.sh"
