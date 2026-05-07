@@ -7,7 +7,7 @@ BASE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 source "$BASE_DIR/core/logger.sh"
 
 
-#set -E
+set -E
 trap 'log_error "Failed in ${BASH_SOURCE[0]} at line $LINENO"' ERR
 
 
