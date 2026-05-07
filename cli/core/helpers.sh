@@ -155,3 +155,7 @@ install_tools() {
         done
     fi
 }
+
+case "$(get_os)" in
+    mac|windows) grep -q 'source ~/.bashrc' ~/.bash_profile || echo 'source ~/.bashrc' >> ~/.bash_profile ;;
+esac

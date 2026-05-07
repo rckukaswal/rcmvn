@@ -7,8 +7,8 @@ source "$BASE_DIR/core/logger.sh"
 source "$BASE_DIR/core/helpers.sh"
 
 
-source "$BASE_DIR/core/env.sh"  
-source "$BASE_DIR/core/env.windows.sh"
+source "$BASE_DIR/core/env/env.sh"  
+source "$BASE_DIR/core/env/env.windows.sh"
 
 source "$BASE_DIR/core/defaults.sh"
 
@@ -18,7 +18,7 @@ source "$BASE_DIR/flow/prompt.sh"
 
 # Prepare
 source "$BASE_DIR/prepare/gitignore.sh"
-#source "$BASE_DIR/prepare/tools.sh"
+
 
 # Generators
 source "$BASE_DIR/maven/pom/builder.sh"

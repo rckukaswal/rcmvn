@@ -16,7 +16,7 @@ set_config_defaults() {
 }
 
 set_install_defaults() {
-   WIN_TOOLS=(java maven)
+   WIN_TOOLS=(java maven git)
     LINUX_TOOLS=(java maven git)
    
    install_tools
