@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-BASE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # Common
 source "$BASE_DIR/core/logger.sh"
