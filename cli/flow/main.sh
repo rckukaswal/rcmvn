@@ -1,17 +1,17 @@
 #!/bin/bash
-#set -e
+set -e
+trap 'log_error "Failed at line $LINENO"' ERR
+
 BASE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
 # Common
 source "$BASE_DIR/core/logger.sh"
 source "$BASE_DIR/core/helpers.sh"
-
-
-source "$BASE_DIR/core/env/env.sh"  
-source "$BASE_DIR/core/env/env.windows.sh"
-
 source "$BASE_DIR/core/defaults.sh"
 
+# OS Specific
+source "$BASE_DIR/core/env/env.sh"  
+source "$BASE_DIR/core/env/env.windows.sh"
 
 # Input
 source "$BASE_DIR/flow/prompt.sh"
@@ -19,10 +19,9 @@ source "$BASE_DIR/flow/prompt.sh"
 # Prepare
 source "$BASE_DIR/prepare/gitignore.sh"
 
-
 # Generators
-source "$BASE_DIR/maven/pom/builder.sh"
-source "$BASE_DIR/maven/framework/builder.sh"
+source "$BASE_DIR/maven/pom/pom_builder.sh"
+source "$BASE_DIR/maven/framework/framework_builder.sh"
 
 # Run Input
 collect_user_input
