@@ -45,7 +45,7 @@ skip_prompt() {
     return 1
 }
 
-select_option() {
+select_option2() {
     local prompt="$1"
     shift
     local options=("$@")
@@ -80,8 +80,9 @@ select_option() {
                         [[ $selected -ge ${#options[@]} ]] && selected=0
                         ;;
                 esac
-               printf '\033[%dA' "$lines" >&2
-printf '\033[J' >&2
+                for ((i=0; i<lines; i++)); do tput cuu1 >&2; done
+                for ((i=0; i<lines; i++)); do tput el >&2; tput cud1 >&2; done
+                for ((i=0; i<lines; i++)); do tput cuu1 >&2; done
                 for i in "${!options[@]}"; do
                     if [[ $i -eq $selected ]]; then
                         printf "${CYAN}${BOLD}❯ %s${RESET}\n" "${options[$i]}" >&2
@@ -95,6 +96,53 @@ printf '\033[J' >&2
                 return
                 ;;
         esac
+    done
+}
+
+select_option() {
+    local prompt="$1"
+    shift
+    local options=("$@")
+    local selected=0
+    local key
+    local lines=${#options[@]}
+    local CYAN='\033[0;36m'
+    local BOLD='\033[1m'
+    local RESET='\033[0m'
+
+    draw() {
+        for i in "${!options[@]}"; do
+            if [[ $i -eq $selected ]]; then
+                printf "${CYAN}${BOLD}❯ %s${RESET}\n" "${options[$i]}" >&2
+            else
+                printf "  %s\n" "${options[$i]}" >&2
+            fi
+        done
+    }
+
+    draw
+
+    while true; do
+        IFS= read -rsn1 key </dev/tty
+
+        if [[ $key == $'\x1b' ]]; then
+            read -rsn2 key </dev/tty
+            case "$key" in
+                "[A")
+                    ((selected--))
+                    [[ $selected -lt 0 ]] && selected=$((lines - 1))
+                    ;;
+                "[B")
+                    ((selected++))
+                    [[ $selected -ge $lines ]] && selected=0
+                    ;;
+            esac
+            printf '\033[%dA\033[J' "$lines" >&2
+            draw
+        elif [[ $key == "" ]]; then
+            printf '%s\n' "${options[$selected]}"
+            return
+        fi
     done
 }
 
