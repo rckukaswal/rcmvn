@@ -105,12 +105,11 @@ select_option() {
     local options=("$@")
     local selected=0
     local key
-    local lines=${#options[@]}
     local CYAN='\033[0;36m'
     local BOLD='\033[1m'
     local RESET='\033[0m'
 
-    draw() {
+    while true; do
         for i in "${!options[@]}"; do
             if [[ $i -eq $selected ]]; then
                 printf "${CYAN}${BOLD}❯ %s${RESET}\n" "${options[$i]}" >&2
@@ -118,27 +117,16 @@ select_option() {
                 printf "  %s\n" "${options[$i]}" >&2
             fi
         done
-    }
 
-    draw
-
-    while true; do
         IFS= read -rsn1 key </dev/tty
-
         if [[ $key == $'\x1b' ]]; then
             read -rsn2 key </dev/tty
             case "$key" in
-                "[A")
-                    ((selected--))
-                    [[ $selected -lt 0 ]] && selected=$((lines - 1))
-                    ;;
-                "[B")
-                    ((selected++))
-                    [[ $selected -ge $lines ]] && selected=0
-                    ;;
+                "[A") ((selected--)); [[ $selected -lt 0 ]] && selected=$((${#options[@]} - 1)) ;;
+                "[B") ((selected++)); [[ $selected -ge ${#options[@]} ]] && selected=0 ;;
             esac
-            printf '\033[%dA\033[J' "$lines" >&2
-            draw
+            tput cuu "${#options[@]}" >&2
+            tput ed >&2
         elif [[ $key == "" ]]; then
             printf '%s\n' "${options[$selected]}"
             return
