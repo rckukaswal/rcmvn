@@ -80,9 +80,8 @@ select_option() {
                         [[ $selected -ge ${#options[@]} ]] && selected=0
                         ;;
                 esac
-                for ((i=0; i<lines; i++)); do tput cuu1 >&2; done
-                for ((i=0; i<lines; i++)); do tput el >&2; tput cud1 >&2; done
-                for ((i=0; i<lines; i++)); do tput cuu1 >&2; done
+               printf '\033[%dA' "$lines" >&2
+printf '\033[J' >&2
                 for i in "${!options[@]}"; do
                     if [[ $i -eq $selected ]]; then
                         printf "${CYAN}${BOLD}❯ %s${RESET}\n" "${options[$i]}" >&2
