@@ -1,15 +1,23 @@
 #!/bin/bash
 
 is_windows || return 0
-case "$(get_os)" in
-    mac|windows) grep -q 'source ~/.bashrc' ~/.bash_profile || echo 'source ~/.bashrc' >> ~/.bash_profile ;;
-esac
+
+ensure_bash_profile() {
+    local profile="$HOME/.bash_profile"
+    [ -f "$profile" ] || touch "$profile"
+    grep -q 'source ~/.bashrc' "$profile" || echo 'source ~/.bashrc' >> "$profile"
+    echo "$profile"
+}
+
+ 
+
 # ─── PATH ──────────────────────────────────────
 add_to_path() {
     [[ -d "$1" ]] && [[ ":$PATH:" != *":$1:"* ]] && export PATH="$PATH:$1"
 }
 
 refresh_path() {
+    
     add_to_path "$HOME/.devtools/java/bin"
     add_to_path "$HOME/.devtools/maven/bin"
     hash -r
@@ -107,4 +115,7 @@ log_warning "Skipping $tool installation"
 return 1
 }
 
+
+
+ensure_bash_profile
 refresh_path

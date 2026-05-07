@@ -80,7 +80,9 @@ select_option() {
                         [[ $selected -ge ${#options[@]} ]] && selected=0
                         ;;
                 esac
+                
                 printf "\033[%dA\033[J" "$lines" >&2
+
                 for i in "${!options[@]}"; do
                     if [[ $i -eq $selected ]]; then
                         printf "${CYAN}${BOLD}❯ %s${RESET}\n" "${options[$i]}" >&2
