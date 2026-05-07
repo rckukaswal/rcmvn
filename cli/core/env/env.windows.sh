@@ -1,5 +1,6 @@
 #!/bin/bash
 
+is_windows || return 0
 
 # ─── PATH ──────────────────────────────────────
 add_to_path() {
