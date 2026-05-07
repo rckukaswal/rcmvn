@@ -6,7 +6,7 @@ ensure_bash_profile() {
     local profile="$HOME/.bash_profile"
     [ -f "$profile" ] || touch "$profile"
     grep -q 'source ~/.bashrc' "$profile" || echo 'source ~/.bashrc' >> "$profile"
-    echo "$profile"
+   
 }
 
  
