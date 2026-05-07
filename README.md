@@ -1,4 +1,4 @@
-# rcmvn — Maven Project Generator
+# rcmvn — Selenium Test Automation Framework Generator
 
 <p align="center">
   <strong>Stop setting up. Start testing.</strong><br/>
