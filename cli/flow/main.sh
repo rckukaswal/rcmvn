@@ -8,7 +8,7 @@ source "$BASE_DIR/core/logger.sh"
 
 
 set -E
-trap 'log_error "Failed at line $LINENO"' ERR
+trap 'log_error "Failed in ${BASH_SOURCE[0]} at line $LINENO"' ERR
 
 
 source "$BASE_DIR/core/helpers.sh"
