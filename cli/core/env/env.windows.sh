@@ -18,8 +18,8 @@ add_to_path() {
 
 refresh_path() {
     
-    add_to_path "$HOME/.devtools/java/bin"
-    add_to_path "$HOME/.devtools/maven/bin"
+    add_to_path "$HOME/.devtools/java/bin" || true
+    add_to_path "$HOME/.devtools/maven/bin" || true
     hash -r
 
     local profile="$HOME/.bash_profile"
