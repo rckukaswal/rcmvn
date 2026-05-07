@@ -1,11 +1,16 @@
 #!/bin/bash
-set -E
-trap 'log_error "Failed at line $LINENO"' ERR
+
 
 BASE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
 # Common
 source "$BASE_DIR/core/logger.sh"
+
+
+set -E
+trap 'log_error "Failed at line $LINENO"' ERR
+
+
 source "$BASE_DIR/core/helpers.sh"
 source "$BASE_DIR/core/defaults.sh"
 
