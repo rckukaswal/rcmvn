@@ -7,9 +7,9 @@ build_framework() {
     
     log_step "Building Framework"
 
-    local tmj="$BASE_DIR/maven/framework/src/main/java"
-    local ttj="$BASE_DIR/maven/framework/src/test/java"
-    local ttr="$BASE_DIR/maven/framework/src/test/resources"
+    local tmj="$CLI_DIR/maven/framework/src/main/java"
+    local ttj="$CLI_DIR/maven/framework/src/test/java"
+    local ttr="$CLI_DIR/maven/framework/src/test/resources"
 
     source "$tmj/factory/driver_factory.sh"
     source "$tmj/manager/driver_manager.sh"
