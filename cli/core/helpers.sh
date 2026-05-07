@@ -45,7 +45,7 @@ skip_prompt() {
     return 1
 }
 
-select_option2() {
+select_option() {
     local prompt="$1"
     shift
     local options=("$@")
@@ -99,40 +99,7 @@ select_option2() {
     done
 }
 
-select_option() {
-    local prompt="$1"
-    shift
-    local options=("$@")
-    local selected=0
-    local key
-    local CYAN='\033[0;36m'
-    local BOLD='\033[1m'
-    local RESET='\033[0m'
 
-    while true; do
-        for i in "${!options[@]}"; do
-            if [[ $i -eq $selected ]]; then
-                printf "${CYAN}${BOLD}❯ %s${RESET}\n" "${options[$i]}" >&2
-            else
-                printf "  %s\n" "${options[$i]}" >&2
-            fi
-        done
-
-        IFS= read -rsn1 key </dev/tty
-        if [[ $key == $'\x1b' ]]; then
-            read -rsn2 key </dev/tty
-            case "$key" in
-                "[A") ((selected--)); [[ $selected -lt 0 ]] && selected=$((${#options[@]} - 1)) ;;
-                "[B") ((selected++)); [[ $selected -ge ${#options[@]} ]] && selected=0 ;;
-            esac
-            tput cuu "${#options[@]}" >&2
-            tput ed >&2
-        elif [[ $key == "" ]]; then
-            printf '%s\n' "${options[$selected]}"
-            return
-        fi
-    done
-}
 
 get_os() {
     case "$(uname -s)" in
