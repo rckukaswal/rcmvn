@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -E
 trap 'log_error "Failed at line $LINENO"' ERR
 
 BASE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
