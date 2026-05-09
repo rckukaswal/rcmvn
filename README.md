@@ -416,13 +416,23 @@ Have an idea or found a bug? [Open an issue](https://github.com/rckukaswal/rcmvn
 
 Copyright (c) 2026 Ramchandra Kukaswal
 
-This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License**.
+This project is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**.
 
-- ✅ Free to use and share with attribution
-- ✅ Modify for personal/non-commercial use
-- ❌ Commercial use, resale, or redistribution without permission is prohibited
+You are free to:
 
-See [LICENSE](./LICENSE) for full terms.  
-For commercial licensing: [github.com/rckukaswal](https://github.com/rckukaswal)
+* ✅ Use
+* ✅ Modify
+* ✅ Distribute
 
-If this saved you time, consider giving it a ⭐ on GitHub!
+under the terms of the AGPL-3.0 license.
+
+If you modify this software and make it publicly available
+(including hosting it as a service), you must also make the
+modified source code available under the same license.
+
+See [LICENSE](./LICENSE) for full license terms.
+
+For more details about AGPL:
+https://www.gnu.org/licenses/agpl-3.0.en.html
+
+If this project saved you time, consider giving it a ⭐ on GitHub!
