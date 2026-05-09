@@ -32,4 +32,3 @@ echo "ℹ️  Run: source ~/.bashrc"
 
 
 bash "$START_SCRIPT"
-#
