@@ -1,21 +1,52 @@
-MIT License
+Creative Commons Attribution-NonCommercial 4.0 International License
 
-Copyright (c) 2026 Ramchandra Kukaswal
+Copyright (c) 2026 Ramchandra Kukaswal (https://github.com/rckukaswal)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This work is licensed under the Creative Commons Attribution-NonCommercial 4.0
+International License.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+=============================================================================
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+You are free to:
+
+  Share  — copy and redistribute the material in any medium or format
+  Adapt  — remix, transform, and build upon the material
+
+Under the following terms:
+
+  Attribution     — You must give appropriate credit to the original author:
+                    Ramchandra Kukaswal (https://github.com/rckukaswal)
+                    You must provide a link to this license, and indicate if
+                    changes were made. You may do so in any reasonable manner,
+                    but not in any way that suggests the licensor endorses you
+                    or your use.
+
+  NonCommercial   — You may NOT use the material for commercial purposes.
+                    This includes (but is not limited to):
+                      - Selling this tool or a modified version of it
+                      - Bundling it into a paid product or service
+                      - Using it in a commercial SaaS, CLI tool, or platform
+                        without explicit written permission from the author
+
+  No additional   — You may not apply legal terms or technological measures
+  restrictions      that legally restrict others from doing anything the
+                    license permits.
+
+=============================================================================
+
+Notices:
+
+  You do not have to comply with the license for elements of the material
+  in the public domain or where your use is permitted by an applicable
+  exception or limitation.
+
+  No warranties are given. The license may not give you all of the
+  permissions necessary for your intended use.
+
+=============================================================================
+
+For commercial licensing inquiries, contact:
+  GitHub : https://github.com/rckukaswal
+  Repo   : https://github.com/rckukaswal/rcmvn
+
+Full license text: https://creativecommons.org/licenses/by-nc/4.0/legalcode
