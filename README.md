@@ -1,4 +1,4 @@
-# rcmvn 
+# rcmvn
 > # Selenium Automation Framework Generator
 
 <p align="center">
@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/java-21-orange?style=flat-square&logo=openjdk" />
   <img src="https://img.shields.io/badge/maven-3.9+-blue?style=flat-square&logo=apachemaven" />
   <img src="https://img.shields.io/badge/platform-linux%20%7C%20mac%20%7C%20windows-lightgrey?style=flat-square" />
-  <img src="https://img.shields.io/badge/license-MIT-purple?style=flat-square" />
+  <img src="https://img.shields.io/badge/license-CC%20BY--NC%204.0-red?style=flat-square" />
 </p>
 
 ---
@@ -414,6 +414,15 @@ Have an idea or found a bug? [Open an issue](https://github.com/rckukaswal/rcmvn
 
 ## 📄 License
 
-MIT License — see [LICENSE](./LICENSE) for details.
+Copyright (c) 2026 Ramchandra Kukaswal
 
-Free to use, modify, and distribute. If this saved you time, consider giving it a ⭐ on GitHub!
+This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License**.
+
+- ✅ Free to use and share with attribution
+- ✅ Modify for personal/non-commercial use
+- ❌ Commercial use, resale, or redistribution without permission is prohibited
+
+See [LICENSE](./LICENSE) for full terms.  
+For commercial licensing: [github.com/rckukaswal](https://github.com/rckukaswal)
+
+If this saved you time, consider giving it a ⭐ on GitHub!
