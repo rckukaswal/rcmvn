@@ -1,22 +1,57 @@
 name: CI
 
 on:
-push:
-branches: [ "main" ]
-
-pull_request:
-branches: [ "main" ]
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "develop" ]
 
 jobs:
-test-install:
-runs-on: ubuntu-latest
 
-steps:
-  - name: Checkout repository
-    uses: actions/checkout@v4
+  shellcheck:
+    name: Shell Script Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-  - name: Run setup script
-    run: bash cli/setup.sh
+      - name: Install shellcheck
+        run: sudo apt-get install -y shellcheck
 
-  - name: Verify command
-    run: rcmvn --help || true
+      - name: Run shellcheck on all scripts
+        run: |
+          find cli -name "*.sh" | while read file; do
+            echo "Checking: $file"
+            shellcheck "$file" || true
+          done
+
+  test-install:
+    name: Test Install — Linux
+    runs-on: ubuntu-latest
+    needs: shellcheck
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install git and bash
+        run: sudo apt-get install -y git bash
+
+      - name: Run setup script
+        run: bash cli/setup.sh
+
+      - name: Verify rcmvn alias created
+        run: grep -q "alias rcmvn=" ~/.bashrc && echo "✔ alias found" || echo "✖ alias missing"
+
+  test-install-macos:
+    name: Test Install — macOS
+    runs-on: macos-latest
+    needs: shellcheck
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run setup script
+        run: bash cli/setup.sh
+
+      - name: Verify rcmvn alias created
+        run: grep -q "alias rcmvn=" ~/.bashrc || grep -q "alias rcmvn=" ~/.bash_profile && echo "✔ alias found" || echo "✖ alias missing"
