@@ -1,5 +1,11 @@
-# This is a basic workflow to help you get started with Actions
-```yaml id="88nq1h"
+remove karo
+
+Sirf pure YAML content rehna chahiye.
+
+Correct file exactly aisi honi chahiye:
+
+:::writing{variant="standard" id="81264"}
+```yaml id="quihch"
 name: CI
 
 on:
@@ -22,4 +28,3 @@ jobs:
 
       - name: Verify command
         run: rcmvn --help || true
-```
