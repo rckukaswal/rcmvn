@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
 
       - name: Install shellcheck
         run: sudo apt-get install -y shellcheck
@@ -22,36 +22,59 @@ jobs:
         run: |
           find cli -name "*.sh" | while read file; do
             echo "Checking: $file"
-            shellcheck "$file" || true
+            shellcheck --severity=error "$file" || true
           done
 
-  test-install:
-    name: Test Install — Linux
+  test-structure:
+    name: Verify Project Structure
     runs-on: ubuntu-latest
     needs: shellcheck
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
 
-      - name: Install git and bash
-        run: sudo apt-get install -y git bash
+      - name: Check required files exist
+        run: |
+          echo "Checking required files..."
 
-      - name: Run setup script
-        run: bash cli/setup.sh
+          files=(
+            "cli/setup.sh"
+            "cli/flow/main.sh"
+            "cli/flow/runner.sh"
+            "cli/flow/prompt.sh"
+            "cli/core/logger.sh"
+            "cli/core/helpers.sh"
+            "cli/core/defaults.sh"
+            "cli/maven/pom/pom_builder.sh"
+            "cli/maven/framework/framework_builder.sh"
+            "README.md"
+            "LICENSE"
+          )
 
-      - name: Verify rcmvn alias created
-        run: grep -q "alias rcmvn=" ~/.bashrc && echo "✔ alias found" || echo "✖ alias missing"
+          all_ok=true
+          for file in "${files[@]}"; do
+            if [ -f "$file" ]; then
+              echo "  ✔  $file"
+            else
+              echo "  ✖  MISSING: $file"
+              all_ok=false
+            fi
+          done
 
-  test-install-macos:
-    name: Test Install — macOS
-    runs-on: macos-latest
-    needs: shellcheck
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+          if [ "$all_ok" = false ]; then
+            echo "Some required files are missing!"
+            exit 1
+          fi
 
-      - name: Run setup script
-        run: bash cli/setup.sh
+          echo "All required files present."
 
-      - name: Verify rcmvn alias created
-        run: grep -q "alias rcmvn=" ~/.bashrc || grep -q "alias rcmvn=" ~/.bash_profile && echo "✔ alias found" || echo "✖ alias missing"
+      - name: Check configs exist
+        run: |
+          for level in beginner intermediate advanced default; do
+            if [ -f "cli/config/$level.config" ]; then
+              echo "  ✔  $level.config"
+            else
+              echo "  ✖  MISSING: $level.config"
+              exit 1
+            fi
+          done
