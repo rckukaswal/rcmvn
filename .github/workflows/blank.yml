@@ -1,30 +1,24 @@
-remove karo
-
-Sirf pure YAML content rehna chahiye.
-
-Correct file exactly aisi honi chahiye:
-
-:::writing{variant="standard" id="81264"}
-```yaml id="quihch"
 name: CI
 
 on:
-  push:
-    branches: [ "main" ]
+push:
+branches: [ "main" ]
 
-  pull_request:
-    branches: [ "main" ]
+pull_request:
+branches: [ "main" ]
 
 jobs:
-  test-install:
-    runs-on: ubuntu-latest
+test-install:
+runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+```
+steps:
+  - name: Checkout repository
+    uses: actions/checkout@v4
 
-      - name: Run setup script
-        run: bash cli/setup.sh
+  - name: Run setup script
+    run: bash cli/setup.sh
 
-      - name: Verify command
-        run: rcmvn --help || true
+  - name: Verify command
+    run: rcmvn --help || true
+```
