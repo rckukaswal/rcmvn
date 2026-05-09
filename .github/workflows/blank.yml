@@ -1,0 +1,25 @@
+# This is a basic workflow to help you get started with Actions
+```yaml id="88nq1h"
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test-install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run setup script
+        run: bash cli/setup.sh
+
+      - name: Verify command
+        run: rcmvn --help || true
+```
